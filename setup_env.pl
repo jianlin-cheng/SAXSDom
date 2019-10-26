@@ -9,7 +9,7 @@
 #																					#
 # Set directory of SAXSDom databases and tools								        #
 
-$SAXSDom_db_tools_dir = "/data/commons/SAXSDom_db_tools/";							        
+$SAXSDom_db_tools_dir = "/storage/htc/bdm/tools/SAXSDom_database_tools/";							        
 						        
 
 ######################## !!! End of customize settings !!! ##########################
@@ -73,19 +73,8 @@ print "Start install SAXSDom into <$SAXSDom_db_tools_dir>\n";
 
 chdir($SAXSDom_db_tools_dir);
 
-$database_dir = "$SAXSDom_db_tools_dir/databases";
 $tools_dir = "$SAXSDom_db_tools_dir/tools";
 
-
-if(!-d $database_dir)
-{
-	$status = system("mkdir $database_dir");
-	if($status)
-	{
-		die "Failed to create folder ($database_dir), check permission or folder path\n";
-	}
-	`chmod -R 755 $database_dir`;
-}
 if(!-d $tools_dir)
 { 
 	$status = system("mkdir $tools_dir");
