@@ -64,12 +64,11 @@ if ( substr($install_dir, length($install_dir) - 1, 1) ne "/" )
 
 ######### check the SAXSDom database and tools
 
-$database_dir = "$SAXSDom_db_tools_dir/databases";
 $tools_dir = "$SAXSDom_db_tools_dir/tools";
 
-if(!(-d $database_dir) or !(-d $tools_dir))
+if(!(-d $tools_dir))
 {
-	die "Failed to find databases and tools under $SAXSDom_db_tools_dir/\n";
+	die "Failed to find tools under $SAXSDom_db_tools_dir/\n";
 }
 
 if($SAXSDom_db_tools_dir eq "$cur_dir/")
@@ -77,11 +76,12 @@ if($SAXSDom_db_tools_dir eq "$cur_dir/")
 	die "Same directory as SAXSDom main folder. Differnt path for original databases/tools folder $SAXSDom_db_tools_dir is recommended.\n";
 }
 #create link for databases and tools
-`rm ${install_dir}databases`; 
-`rm ${install_dir}tools`; 
-`ln -s $database_dir ${install_dir}databases`;
+if(-d "${install_dir}tools")
+{
+  `rm ${install_dir}tools`; 
+}
 `ln -s $tools_dir ${install_dir}tools`;
-
+=pod
 
 if (prompt_yn("SAXSDom will be installed into <$install_dir> ")){
 
@@ -89,7 +89,7 @@ if (prompt_yn("SAXSDom will be installed into <$install_dir> ")){
 	die "The installation is cancelled!\n";
 }
 print "Start install SAXSDom into <$install_dir>\n"; 
-
+=cut
 
 
 
@@ -105,7 +105,7 @@ configure_file2($option_list,'bin');
 configure_file2($option_list,'installation');
 print "#########  Configuring option files, done\n\n\n";
 
-
+=pod
 ### compress benchmark dataset
 
 $benchmark_dir = "$install_dir/installation";
@@ -123,214 +123,10 @@ if(! -d "benchmark")
 {
 	die "Failed to download benchmark.tar.gz from http://sysbio.rnet.missouri.edu/bdm_download/test/benchmark.tar.gz, please contact chengji\@missouri.edu\n";
 }
-
+=cut
 
 system("mv $install_dir/installation/SAXSDom_test_codes/T0_run_SAXSDom*.sh $install_dir/examples");
 system("chmod +x $install_dir/examples/*.sh");
-
-
-=pod
-print "#########  (3) Configuring scripts\n";
-
-$option_list = "$install_dir/installation/SAXSDom_configure_files/SAXSDom_scripts_list";
-
-if (! -f $option_list)
-{
-        die "\nOption file $option_list not exists.\n";
-}
-configure_file($option_list,'src');
-print "#########  Configuring scripts, done\n\n\n";
-
-
-
-print "#########  (4) Configuring examples\n";
-
-$option_list = "$install_dir/installation/SAXSDom_configure_files/SAXSDom_examples_list";
-
-if (! -f $option_list)
-{
-        die "\nOption file $option_list not exists.\n";
-}
-system("rm $install_dir/installation/SAXSDom_test_codes/*.sh");
-configure_file2($option_list,'installation');
-print "#########  Configuring examples, done\n\n\n";
-
-system("chmod +x $install_dir/installation/SAXSDom_test_codes/*sh");
-
-
-
-system("cp $install_dir/src/run_SAXSDom.sh $install_dir/bin/run_SAXSDom.sh");
-system("chmod +x $install_dir/bin/run_SAXSDom.sh");
-
-
-
-print "#########  (5) Configuring database update scripts\n";
-
-$option_list = "$install_dir/installation/SAXSDom_configure_files/SAXSDom_db_list";
-
-if (! -f $option_list)
-{
-        die "\nOption file $option_list not exists.\n";
-}
-configure_file2($option_list,'src');
-print "#########  Configuring database update scripts, done\n\n\n";
-
-
-
-
-
-
-##### generate scripts for methods, saved in bin
-#installation/SAXSDom_programs/.P1_run_hhsearch.sh
-
-print "#########  (7) Configuring SAXSDom programs\n";
-$method_file = "$install_dir/method.list";
-$option_list = "$install_dir/installation/SAXSDom_configure_files/SAXSDom_programs_list";
-
-`rm $install_dir/installation/SAXSDom_programs/*sh`;
-`rm $install_dir/bin/*sh`;
-
-$python_env = 0;
-$boost_enable = 0;
-open(OUT,">$install_dir/Method_tutorial.txt") || die "Failed to open file $install_dir/Method_tutorial.txt\n";
-if(!(-e $method_file) or !(-e $option_list))
-{
-	print "\nFailed to find method file ($method_file and $option_list), please contact us!\n\n";
-}else{
-	open(IN,$option_list) || die "Failed to open file $option_list\n";
-	@contents = <IN>;
-	close IN;
-	%method_programs=();
-	foreach $line (@contents)
-	{
-		chomp $line;
-		if(substr($line,0,1) eq '#')
-		{
-			next;
-		}
-		$line =~ s/^\s+|\s+$//g;
-		if($line eq '')
-		{
-			next;
-		}
-		@tmp = split(':',$line);
-		$method_programs{$tmp[0]} = $tmp[1];
-	}
-	
-	open(IN,$method_file) || die "Failed to open file $method_file\n";
-	@contents = <IN>;
-	open(TMP,">$install_dir/installation/SAXSDom_configure_files/option.tmp");
-	foreach $method (@contents)
-	{
-		chomp $method;
-		if(substr($method,0,1) eq '#')
-		{
-			next;
-		}
-		$method =~ s/^\s+|\s+$//g;
-		if($method eq '')
-		{
-			next;
-		}
-		if(exists($method_programs{"${method}"}))
-		{
-			$file = $method_programs{"${method}"};
-			print TMP "$file\n";
-		}
-		if(exists($method_programs{"${method}_easy"}))
-		{
-			$file = $method_programs{"${method}_easy"};
-			print TMP "$file\n";
-		}
-		if(exists($method_programs{"${method}_hard"}))
-		{
-			$file = $method_programs{"${method}_hard"};
-			print TMP "$file\n";
-		}
-	}
-	close TMP;
-	configure_file2("$install_dir/installation/SAXSDom_configure_files/option.tmp",'installation');
-	`rm $install_dir/installation/SAXSDom_configure_files/option.tmp`;
-	`cp $install_dir/installation/SAXSDom_programs/*sh $install_dir/bin/`;
-	
-	print "#########  Configuring examples, done\n\n\n";
-	
-	$method_indx = 0;
-	foreach $method (@contents)
-	{
-		chomp $method;
-		if(substr($method,0,1) eq '#')
-		{
-			next;
-		}
-		$method =~ s/^\s+|\s+$//g;
-		if($method eq '')
-		{
-			next;
-		}
-		$method_indx++;
-		
-		print  "\n################################################################# Method $method_indx: $method  #################################################################\n\n";
-		print  OUT "\n################################################################# Method $method_indx: $method  #################################################################\n\n";
-		if(exists($method_programs{"${method}"}))
-		{
-			$file = $method_programs{"${method}"};
-			@tmp = split(/\//,$file);
-			$program_file = pop @tmp;
-			if(-e "$install_dir/bin/$program_file")
-			{
-				print "Usage: $install_dir/bin/$program_file <target id> <fasta> <output-directory>\n\n";
-				print OUT "Usage: $install_dir/bin/$program_file <target id> <fasta> <output-directory>\n\n";
-				print "\t** Example: $install_dir/bin/$program_file T1006 $install_dir/examples/T1006.fasta $install_dir/test_out/T1006_$method\n\n";
-				print OUT "\t** Example: $install_dir/bin/$program_file T1006 $install_dir/examples/T1006.fasta $install_dir/test_out/T1006_$method\n\n";
-			}
-			
-		}
-		if(exists($method_programs{"${method}_easy"}))
-		{
-			$file = $method_programs{"${method}_easy"};
-			@tmp = split(/\//,$file);
-			$program_file = pop @tmp;
-			if(-e "$install_dir/bin/$program_file")
-			{
-				print "Usage: $install_dir/bin/$program_file <target id> <fasta> <output-directory>\n\n";
-				print OUT "Usage: $install_dir/bin/$program_file <target id> <fasta> <output-directory>\n\n";
-				print "\t** Example: $install_dir/bin/$program_file T1006 $install_dir/examples/T1006.fasta $install_dir/test_out/T1006_$method\n\n";
-				print OUT "\t** Example: $install_dir/bin/$program_file T1006 $install_dir/examples/T1006.fasta $install_dir/test_out/T1006_$method\n\n";
-			}
-		}
-		if(exists($method_programs{"${method}_hard"}))
-		{
-			$file = $method_programs{"${method}_hard"};
-			@tmp = split(/\//,$file);
-			$program_file = pop @tmp;
-			if(-e "$install_dir/bin/$program_file")
-			{
-				print "Usage: $install_dir/bin/$program_file <target id> <fasta> <output-directory>\n\n";
-				print OUT "Usage: $install_dir/bin/$program_file <target id> <fasta> <output-directory>\n\n";
-				print "\t** Example: $install_dir/bin/$program_file T1006 $install_dir/examples/T1006.fasta $install_dir/test_out/T1006_${method}_hard\n\n";
-				print OUT "\t** Example: $install_dir/bin/$program_file T1006 $install_dir/examples/T1006.fasta $install_dir/test_out/T1006_${method}_hard\n\n";
-			}
-		}
-		
-		if($method eq 'dncon2')
-		{
-			$python_env = 1;
-			$boost_enable = 1;
-		}
-	}
-	
-
-}
-close OUT;
-system("chmod +x $install_dir/installation/SAXSDom_test_codes/*sh");
-
-system("cp $install_dir/src/run_SAXSDom.sh $install_dir/bin/run_SAXSDom.sh");
-system("chmod +x $install_dir/bin/*.sh");
-
-
-system("chmod +x $install_dir/src/visualize_SAXSDom_cluster/*.sh");
-=cut
 
 
 
