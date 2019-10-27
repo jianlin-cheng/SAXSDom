@@ -5,7 +5,7 @@
  *
  */
 //#include <IMP/atom/pdb.h>
-#include <IMP/atom/pdb_saxs_jie.h>
+#include <IMP/atom/pdb_SAXSDom.h>
 #include <IMP/atom/internal/pdb.h>
 
 #include <IMP/atom/Atom.h>
