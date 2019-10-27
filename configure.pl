@@ -39,6 +39,23 @@ if ( substr($SAXSDom_db_tools_dir, length($SAXSDom_db_tools_dir) - 1, 1) ne "/" 
 }
 
 
+##### check gcc version
+$check_gcc = system("gcc -dumpversion");
+if($check_gcc)
+{
+	print "Failed to find gcc in system, please check gcc version";
+	exit;
+}
+
+$gcc_v = `gcc -dumpversion`;
+chomp $gcc_v;
+@gcc_version = split(/\./,$gcc_v);
+if($gcc_version[0] != 4)
+{
+	print "!!!! Warning: gcc 4.X.X is recommended for boost installation, currently is $gcc_v\n\n";
+	sleep(2);
+	
+}
 
 print "checking whether the configuration file run in the installation folder ...";
 $cur_dir = `pwd`;
