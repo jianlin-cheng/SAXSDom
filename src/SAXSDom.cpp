@@ -9812,7 +9812,7 @@ int read_pdb_file(char* filename, mol_type* molecules, char *realname)
           sgnum=0;
           sgx=sgy=sgz=0.;
           molecules->nres++;
-          res->name = (char *)calloc(strlen(resname)+1, 1);  (char *)
+          res->name = (char *)calloc(strlen(resname)+1, 1);  // (char *)
           res->type = AA_NUMS[setseq(resname)];
           res->locnum=locnum++;
           res->num = resnum;
@@ -9835,7 +9835,7 @@ int read_pdb_file(char* filename, mol_type* molecules, char *realname)
         sscanf(&buffer[38], "%lf", &y);
         sscanf(&buffer[46], "%lf", &z);
         version = buffer[16];
-        atom->name = (char *) calloc(strlen(atmname)+1,1);  (char *)
+        atom->name = (char *) calloc(strlen(atmname)+1,1);  // (char *)
         strcpy(atom->name, atmname);
         atom->x=x; atom->y=y; atom->z=z;
         atom->num = atmnum;
@@ -9983,7 +9983,7 @@ int read_pdb_file_saxs(char* filename, mol_type* molecules, char *realname, stri
           sgnum=0;
           sgx=sgy=sgz=0.;
           molecules->nres++;
-          res->name = (char *)calloc(strlen(resname)+1, 1);  (char *)
+          res->name = (char *)calloc(strlen(resname)+1, 1);  // (char *)
           res->type = AA_NUMS[setseq(resname)];
           res->locnum=locnum++;
           res->num = resnum;
@@ -10006,7 +10006,7 @@ int read_pdb_file_saxs(char* filename, mol_type* molecules, char *realname, stri
         sscanf(&buffer[38], "%lf", &y);
         sscanf(&buffer[46], "%lf", &z);
         version = buffer[16];
-        atom->name = (char *) calloc(strlen(atmname)+1,1);  (char *)
+        atom->name = (char *) calloc(strlen(atmname)+1,1);  // (char *)
         strcpy(atom->name, atmname);
         atom->x=x; atom->y=y; atom->z=z;
         atom->num = atmnum;
