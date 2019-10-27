@@ -7,7 +7,7 @@
 #																					#
 # Set directory of SAXSDom databases and tools								        #
 
-$SAXSDom_db_tools_dir = "/storage/htc/bdm/tools/SAXSDom_database_tools/";						        
+$SAXSDom_db_tools_dir = "/data/commons/SAXSDom_db_tools/";						        
 
 ######################## !!! End of customize settings !!! ##########################
 
