@@ -392,7 +392,7 @@ if($gcc_version[0] ==4 and $gcc_version[1]<6) #gcc 4.6
 	print OUT "mkdir -p $SAXSDom_db_tools_dir/tools/IMP2.6/\n";
 	print OUT "cd $SAXSDom_db_tools_dir/tools/IMP2.6/\n";
   print OUT "cp -ar $install_dir/installation/imp_src/* $SAXSDom_db_tools_dir/tools/imp-2.6.2/\n";
-	print OUT "$SAXSDom_db_tools_dir/tools/cmake-3.5.2/bin/cmake $SAXSDom_db_tools_dir/tools/imp-2.6.2/  -DCMAKE_INSTALL_PREFIX=$SAXSDom_db_tools_dir/tools/IMP2.6/  -DIMP_DOXYGEN_FOUND=\"\"\n";
+	print OUT "$SAXSDom_db_tools_dir/tools/cmake-2.8.12.2/bin/cmake $SAXSDom_db_tools_dir/tools/imp-2.6.2/  -DCMAKE_INSTALL_PREFIX=$SAXSDom_db_tools_dir/tools/IMP2.6/  -DIMP_DOXYGEN_FOUND=\"\"\n";
 	print OUT "make\n";
 	print OUT "#make install\n";
 
@@ -421,7 +421,7 @@ if($gcc_version[0] ==4 and $gcc_version[1]<6) #gcc 4.6
 	print OUT "cd $SAXSDom_db_tools_dir/tools/IMP2.6/\n";
   print OUT "cp -ar $install_dir/installation/imp_src/* $SAXSDom_db_tools_dir/tools/imp-2.6.2/\n";
 
-	print OUT "$SAXSDom_db_tools_dir/tools/cmake-3.5.2/bin/cmake $SAXSDom_db_tools_dir/tools/imp-2.6.2/  -DCMAKE_INSTALL_PREFIX=$SAXSDom_db_tools_dir/tools/IMP2.6/  -DIMP_DOXYGEN_FOUND=\"\"\n";
+	print OUT "$SAXSDom_db_tools_dir/tools/cmake-2.8.12.2/bin/cmake $SAXSDom_db_tools_dir/tools/imp-2.6.2/  -DCMAKE_INSTALL_PREFIX=$SAXSDom_db_tools_dir/tools/IMP2.6/  -DIMP_DOXYGEN_FOUND=\"\"\n";
 	print OUT "make\n";
 	print OUT "make install\n";
 
