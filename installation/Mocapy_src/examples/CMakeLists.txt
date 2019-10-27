@@ -90,12 +90,12 @@ ENDFOREACH(p)
 
 
 ################################################  compile Unicon3d program   ###############################
-#SET(PROGS  FRAGSION Confold-UniCon3D Confold-UniCon3D_1v1 Confold-UniCon3D_1v1_nopulchar UniCon3D_DomainOrient_bySAXS_regularized_fox_V9 UniCon3D_DomainOrient_bySAXS_regularized_fox_V11_almost_final)
+SET(PROGS  SAXSDom)
 
-#FOREACH(p ${PROGS})
-#        add_executable(${p} ${p}.cpp)
-#       target_link_libraries (${p} ${MOCAPYLIB} ${Boost_SERIALIZATION_LIBRARY} ${LAPACK_LIBRARY} ${BLAS_LIBRARY} ${CMAKE_FLIB})
-#ENDFOREACH(p)
+FOREACH(p ${PROGS})
+        add_executable(${p} ${p}.cpp)
+       target_link_libraries (${p} ${MOCAPYLIB} ${Boost_SERIALIZATION_LIBRARY} ${LAPACK_LIBRARY} ${BLAS_LIBRARY} ${CMAKE_FLIB})
+ENDFOREACH(p)
 
 
 

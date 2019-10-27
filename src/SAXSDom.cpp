@@ -10,7 +10,7 @@
 #include <IMP/saxs/RatioVolatilityScore.h>
 #include <IMP/saxs/FormFactorTable.h>
 #include <IMP/saxs/utility.h>
-#include <IMP/saxs/utility_saxs_jie.h>
+#include <IMP/saxs/utility_SAXSDom.h>
 
 #include <IMP/benchmark/Profiler.h>
 #include <IMP/saxs/Distribution.h>
@@ -502,10 +502,10 @@ struct energyInfo {
     double sc_bb;
     double bb_bb;
     double ri_rj;
-    double saxs_chi_global; , 1
-    double saxs_KL; ,2
-    double saxs_score2; ,3
-    double saxs_RG_normalize; ,4
+    double saxs_chi_global;
+    double saxs_KL;
+    double saxs_score2;
+    double saxs_RG_normalize;
     double structure_energy;
     double saxs_energy;
     double saxs_penalty;
@@ -757,7 +757,7 @@ bool acceptMove(energyInfo &prev, energyInfo &curr, double temperature);
 
 void writePdb(vector<pdbInfo> &pdb, char * filename);
 
- function 
+
 void runPulcha(char * pdbTempFile, char * pdbTempFile_pulchra);
 void runPulcha2(char * pdbTempFile, char * pdbTempFile_pulchra);
 void runPulcha3(char * pdbTempFile, char * pdbTempFile_pulchra, string pdbString, string &pdbString_pulchar, int savefile);
@@ -2450,10 +2450,10 @@ void parseOption(int argc, char ** argv) {
 		}
 	
 		
-		 w_saxs_chi = arr[0];  (0~5)
-		 w_saxs_KL = arr[1];  (0~5)
-		 w_saxs_score2 = arr[2];  range (0 ~ 0.5)
-		 w_saxs_RG_normalize = arr[3];  (0~1)
+		 w_saxs_chi = arr[0];
+		 w_saxs_KL = arr[1];
+		 w_saxs_score2 = arr[2];
+		 w_saxs_RG_normalize = arr[3];
 		 
 		 cout << "Setting saxs chi weight to "<< w_saxs_chi<< endl;
 		 cout << "Setting saxs KL weight to "<< w_saxs_KL<< endl;
@@ -2478,10 +2478,10 @@ void parseOption(int argc, char ** argv) {
 		}
 		
 		
-		 w_saxs_chi_initial = arr[0];  (0~5)
-		 w_saxs_KL_initial = arr[1];  (0~5)
-		 w_saxs_score2_initial = arr[2];  range (0 ~ 0.5)
-		 w_saxs_RG_normalize_initial = arr[3];  (0~1)
+		 w_saxs_chi_initial = arr[0];
+		 w_saxs_KL_initial = arr[1];
+		 w_saxs_score2_initial = arr[2];
+		 w_saxs_RG_normalize_initial = arr[3];
 		 
 		 cout << "Setting saxs chi initial weight to "<< w_saxs_chi_initial<< endl;
 		 cout << "Setting saxs KL initial weight to "<< w_saxs_KL_initial<< endl;
@@ -2506,10 +2506,10 @@ void parseOption(int argc, char ** argv) {
 		}
 	
 		
-		 w_saxs_chi_final = arr[0];  (0~5)
-		 w_saxs_KL_final = arr[1];  (0~5)
-		 w_saxs_score2_final = arr[2];  range (0 ~ 0.5)
-		 w_saxs_RG_normalize_final = arr[3];  (0~1)
+		 w_saxs_chi_final = arr[0];
+		 w_saxs_KL_final = arr[1];
+		 w_saxs_score2_final = arr[2];
+		 w_saxs_RG_normalize_final = arr[3];
 		 
 		 cout << "Setting saxs chi final weight to "<< w_saxs_chi_final<< endl;
 		 cout << "Setting saxs KL final weight to "<< w_saxs_KL_final<< endl;
@@ -2533,10 +2533,10 @@ void parseOption(int argc, char ** argv) {
 		}
 	
 		
-		 w_saxs_chi_penalty_initial = arr[0];  (0~5)
-		 w_saxs_KL_penalty_initial = arr[1];  (0~5)
-		 w_saxs_score2_penalty_initial = arr[2];  range (0 ~ 0.5)
-		 w_saxs_RG_normalize_penalty_initial = arr[3];  (0~1)
+		 w_saxs_chi_penalty_initial = arr[0];  
+		 w_saxs_KL_penalty_initial = arr[1];  
+		 w_saxs_score2_penalty_initial = arr[2];  
+		 w_saxs_RG_normalize_penalty_initial = arr[3]; 
 		 
 		 cout << "Setting saxs chi penalty_initial weight to "<< w_saxs_chi_penalty_initial<< endl;
 		 cout << "Setting saxs KL penalty_initial weight to "<< w_saxs_KL_penalty_initial<< endl;
@@ -2561,10 +2561,10 @@ void parseOption(int argc, char ** argv) {
 		}
 	
 		
-		 w_saxs_chi_penalty_final = arr[0];  (0~5)
-		 w_saxs_KL_penalty_final = arr[1];  (0~5)
-		 w_saxs_score2_penalty_final = arr[2];  range (0 ~ 0.5)
-		 w_saxs_RG_normalize_penalty_final = arr[3];  (0~1)
+		 w_saxs_chi_penalty_final = arr[0]; 
+		 w_saxs_KL_penalty_final = arr[1];
+		 w_saxs_score2_penalty_final = arr[2];  
+		 w_saxs_RG_normalize_penalty_final = arr[3];  
 		 
 		 cout << "Setting saxs chi penalty_final weight to "<< w_saxs_chi_penalty_final<< endl;
 		 cout << "Setting saxs KL penalty_final weight to "<< w_saxs_KL_penalty_final<< endl;

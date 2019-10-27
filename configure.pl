@@ -105,11 +105,33 @@ configure_file2($option_list,'bin');
 configure_file2($option_list,'installation');
 print "#########  Configuring option files, done\n\n\n";
 
-=pod
+
+
 ### compress benchmark dataset
 
 $benchmark_dir = "$install_dir/installation";
 chdir($benchmark_dir);
+
+if(-e "Mocapy++-1.07.tar.gz")
+{
+  `tar -zxf Mocapy++-1.07.tar.gz`;
+  `cp -ar  Mocapy_src/* Mocapy++-1.07/`;
+  `cp -ar  $install_dir/src/SAXSDom.cpp Mocapy++-1.07/examples`;
+  
+  open(OUT,">$install_dir/compile_SAXSDom.sh") || die "Failed to open file $install_dir/compile_SAXSDom\n";
+  print OUT "#!/bin/bash -e\n\n";
+  print OUT "echo \" Start compile SAXSDom (will take ~10 min)\"\n\n";
+  print OUT "cd $install_dir/installation/Mocapy++-1.07\n\n";
+  print OUT "export LD_LIBRARY_PATH=$install_dir/tools/boost_1_55_0/lib:\$LD_LIBRARY_PATH\n\n";
+  print OUT "cmake -DBOOST_ROOT='$install_dir/tools/boost_1_55_0/' -DLAPACK_LIBRARY:FILEPATH='$install_dir/tools/lapack-3.4.1/liblapack.a' .\n\n";
+  print OUT "make\n\n";
+  close OUT;  
+}else{
+  die "Failed to find Mocapy++-1.07.tar.gz, contact us\n";
+}
+
+chdir($install_dir);
+=pod
 
 print "Updating benchmark dataset in $benchmark_dir\n\n";
 if(-e "benchmark.tar.gz")
