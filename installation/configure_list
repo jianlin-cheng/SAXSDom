@@ -1,3 +1,5 @@
+### setup bin 
+bin/run_SAXSDom.sh
 
 ### Setup Mocapy src
 installation/Mocapy_src/CMakeLists.txt
