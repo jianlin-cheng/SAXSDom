@@ -9,7 +9,7 @@
 #																					#
 # Set directory of SAXSDom databases and tools								        #
 
-$SAXSDom_db_tools_dir = "/data/commons/SAXSDom_db_tools/";							        
+$SAXSDom_db_tools_dir = "/faculty/jhou4/SAXSDom/SAXSDom_db_tools/";							        
 						        
 
 ######################## !!! End of customize settings !!! ##########################
