@@ -58,7 +58,7 @@ for ((decoy=1;decoy <= $epoch;decoy++))
     fi
 
     echo "$GLOBAL_PATH/bin/SAXSDom  -i ${targetid}_siminit_Wsaxs_regularize -f  ${targetid}.fasta  -s SCRATCH/${targetid}.ss8    -c metapsicov/${targetid}_initial_domain.cm   -l $domainfile  -m $GLOBAL_PATH/lib/UniCon.iohmm       -e $saxsfile -o $outputdir/Assembly_docoy$decoy   $arguments\n\n" 
-   $GLOBAL_PATH/bin/SAXSDom  -i ${targetid}_siminit_Wsaxs_regularize -f  ${targetid}.fasta  -s SCRATCH/${targetid}.ss8    -c metapsicov/${targetid}_initial_domain.cm   -l $domainfile  -m $GLOBAL_PATH/lib/UniCon.iohmm      -e $saxsfile -o $outputdir/Assembly_docoy$decoy   $arguments
+   $GLOBAL_PATH/bin/SAXSDom  -i ${targetid}_siminit_Wsaxs_regularize -f  ${targetid}.fasta  -s SCRATCH/${targetid}.ss8    -c metapsicov/${targetid}_initial_domain.cm   -l $domainfile  -m $GLOBAL_PATH/lib/UniCon.iohmm        -e $saxsfile -o $outputdir/Assembly_docoy$decoy   $arguments
    
    rm $outputdir/Assembly_docoy$decoy/sample*
    rm $outputdir/Assembly_docoy$decoy/GlobalFoldon*pdb
