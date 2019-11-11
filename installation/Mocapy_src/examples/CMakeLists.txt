@@ -6,9 +6,9 @@ SET(CMAKE_VERBOSE_MAKEFILE OFF)
 
 SET(Boost_USE_STATIC_LIBS ON)
 
-SET(BLAS_LIBRARY "/data/jh7x3/SAXSDom/tools/blas-3.6.0/libblas.a")
-SET(IMP_include "/data/jh7x3/SAXSDom/tools/IMP2.6/include/")
-SET(IMP_lib "/data/jh7x3/SAXSDom/tools/IMP2.6/lib/")
+SET(BLAS_LIBRARY "/storage/htc/bdm/jh7x3/DomainOrientation_project/SAXSDom/tools/blas-3.6.0/libblas.a")
+SET(IMP_include "/storage/htc/bdm/jh7x3/DomainOrientation_project/SAXSDom/tools/IMP2.6/include/")
+SET(IMP_lib "/storage/htc/bdm/jh7x3/DomainOrientation_project/SAXSDom/tools/IMP2.6/lib/")
 
 FIND_PACKAGE(Boost COMPONENTS serialization program_options thread REQUIRED)
 
@@ -90,7 +90,7 @@ ENDFOREACH(p)
 
 
 ################################################  compile Unicon3d program   ###############################
-SET(PROGS  SAXSDom_v2)
+SET(PROGS  SAXSDom)
 
 FOREACH(p ${PROGS})
         add_executable(${p} ${p}.cpp)
