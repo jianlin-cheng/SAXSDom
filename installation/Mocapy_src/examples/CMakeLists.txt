@@ -90,7 +90,7 @@ ENDFOREACH(p)
 
 
 ################################################  compile Unicon3d program   ###############################
-SET(PROGS  SAXSDom)
+SET(PROGS  SAXSDom_v2)
 
 FOREACH(p ${PROGS})
         add_executable(${p} ${p}.cpp)
