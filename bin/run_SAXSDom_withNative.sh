@@ -6,7 +6,11 @@ if [ "$#" -ne 8 ]; then
   exit 1
 fi
 
+<<<<<<< HEAD
 GLOBAL_PATH=/storage/htc/bdm/jh7x3/DomainOrientation_project/SAXSDom/;
+=======
+GLOBAL_PATH=/data/jh7x3/SAXSDom/;
+>>>>>>> 908f678e3087899f76fe7374e03641d21115630e
 export LD_LIBRARY_PATH=$GLOBAL_PATH/tools/IMP2.6/lib:$GLOBAL_PATH/tools/boost_1_55_0/lib:$LD_LIBRARY_PATH
 
 targetid=$1
@@ -61,7 +65,11 @@ for ((decoy=1;decoy <= $epoch;decoy++))
     echo "$GLOBAL_PATH/bin/SAXSDom  -i ${targetid}_siminit_Wsaxs_regularize -f  ${targetid}.fasta  -s SCRATCH/${targetid}.ss8    -c metapsicov/${targetid}_initial_domain.cm   -l $domainfile  -m $GLOBAL_PATH/lib/UniCon.iohmm    -n $nativefile     -e $saxsfile -o $outputdir/Assembly_docoy$decoy   $arguments\n\n" 
    $GLOBAL_PATH/bin/SAXSDom  -i ${targetid}_siminit_Wsaxs_regularize -f  ${targetid}.fasta  -s SCRATCH/${targetid}.ss8    -c metapsicov/${targetid}_initial_domain.cm   -l $domainfile  -m $GLOBAL_PATH/lib/UniCon.iohmm    -n $nativefile     -e $saxsfile -o $outputdir/Assembly_docoy$decoy   $arguments
    
+<<<<<<< HEAD
    #rm $outputdir/Assembly_docoy$decoy/sample*
+=======
+   rm $outputdir/Assembly_docoy$decoy/sample*
+>>>>>>> 908f678e3087899f76fe7374e03641d21115630e
    rm $outputdir/Assembly_docoy$decoy/GlobalFoldon*pdb
    rm $outputdir/Assembly_docoy$decoy/*initial*pdb
 }
