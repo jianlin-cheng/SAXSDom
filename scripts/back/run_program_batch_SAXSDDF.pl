@@ -32,7 +32,7 @@ for($epoch =$epoch_start; $epoch<=$epoch_end;$epoch++)
   -d "$outputdir/epoch$epoch" || `mkdir $outputdir/epoch$epoch`;
   
   `cp -ar /data/jh7x3/SAXS_fold_project/SASDDF9/SCRATCH/ $outputdir/epoch$epoch`;
-  print OUT "/storage/htc/bdm/jh7x3/DomainOrientation_project/SAXSDom/bin/run_SAXSDom_withNative.sh SASDDF9 /data/jh7x3/SAXS_fold_project/SASDDF9/SASDDF9.fasta  /data/jh7x3/SAXS_fold_project/SASDDF9/SASDDF9.dat /data/jh7x3/SAXS_fold_project/SASDDF9/domain_models/domain_pdb_list  $outputdir/epoch$epoch  ' -t   -g test_assembly  -d 1 -x  2  --scoreWeight 30_0_0_0 --scoreWeightInitial 30_0_0_0  --scoreCombine' 1 /data/jh7x3/SAXS_fold_project/SASDDF9/SASDDF9_native.pdb\n";
+  print OUT "/storage/htc/bdm/jh7x3/DomainOrientation_project/SAXSDom/bin/run_SAXSDom_withNative.sh SASDDF9 /data/jh7x3/SAXS_fold_project/SASDDF9/SASDDF9.fasta  /data/jh7x3/SAXS_fold_project/SASDDF9/SASDDF9-A-new.dat /data/jh7x3/SAXS_fold_project/SASDDF9/domain_models/domain_pdb_list  $outputdir/epoch$epoch  ' -t   -g test_assembly  -d 1 -x  2  --scoreWeight 30_0_0_0 --scoreWeightInitial 30_0_0_0  --scoreCombine' 1 /data/jh7x3/SAXS_fold_project/SASDDF9/SASDDF9_native.pdb\n";
   
   close OUT;
   

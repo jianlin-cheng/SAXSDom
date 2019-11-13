@@ -444,7 +444,7 @@ struct contactInfo {
 vector<contactInfo> rrContact;
 
 //max and min fragment size
-int MIN_FRG_LEN = 1;
+int MIN_FRG_LEN = 3;
 int MAX_FRG_LEN = 5; 
 int adjustLinker = 1; 
 
