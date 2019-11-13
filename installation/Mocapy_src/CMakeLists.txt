@@ -11,7 +11,7 @@ set(MOCAPY_VERSION 0.1)
 # the project's entire directory structure.
 add_subdirectory (src)
 add_subdirectory (examples)
-add_subdirectory (tests)
+#add_subdirectory (tests)
 
 # settings for making distribution package
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Mocapy is a Dynamic Bayesian Network toolkit")
