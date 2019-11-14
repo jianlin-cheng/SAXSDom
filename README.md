@@ -3,12 +3,27 @@ This is a bioinformatics tool to use SAXS data to assemble protein domain struct
 
 
 **Installation**
+
 ```
+Updating
+
 perl setup_env.pl
+
+
+if report error as "Can't locate Env.pm in @INC (you may need to install the Env module)"
+
+sudo dnf  install perl-Env
+
+
+
+
 
 perl configure.pl
 
 sh compile_SAXSDom.sh
+
+
+
 
 ```
 
