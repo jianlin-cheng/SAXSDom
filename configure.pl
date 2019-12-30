@@ -3,14 +3,6 @@
  use Cwd;
  use Cwd 'abs_path';
 
-######################## !!! customize settings here !!! ############################
-#																					#
-# Set directory of SAXSDom databases and tools								        #
-
-$SAXSDom_db_tools_dir = "/data/commons/SAXSDom_db_tools/";						        
-
-######################## !!! End of customize settings !!! ##########################
-
 ######################## !!! Don't Change the code below##############
 
 
@@ -23,6 +15,7 @@ if(!-d $install_dir)
 	die "The SAXSDom directory ($install_dir) is not existing, please revise the customize settings part inside the configure.pl, set the path as  your unzipped SAXSDom directory\n";
 }
 
+$SAXSDom_db_tools_dir = "$install_dir/db_tools";
 if(!-d $SAXSDom_db_tools_dir)
 {
 	die "The SAXSDom databases/tools folder ($SAXSDom_db_tools_dir) is not existing\n";

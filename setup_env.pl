@@ -2,17 +2,7 @@
  use FileHandle; # use FileHandles instead of open(),close()
  use Cwd;
  use Cwd 'abs_path';
-
- # perl /home/jh7x3/SAXSDom_v1.1/setup_database.pl
  
-######################## !!! customize settings here !!! ############################
-#																					#
-# Set directory of SAXSDom databases and tools								        #
-
-$SAXSDom_db_tools_dir = "/faculty/jhou4/SAXSDom/SAXSDom_db_tools/";							        
-						        
-
-######################## !!! End of customize settings !!! ##########################
 
 ######################## !!! Don't Change the code below##############
 
@@ -41,6 +31,7 @@ if (! -f $configure_file || $install_dir ne "$cur_dir/")
 }
 print " OK!\n";
 
+$SAXSDom_db_tools_dir = "$cur_dir/db_tools";
 
 if(!-d $SAXSDom_db_tools_dir)
 {
