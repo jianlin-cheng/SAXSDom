@@ -37,7 +37,7 @@ for($epoch =1; $epoch<=$epoch_all;$epoch++)
   
   chdir($sbatchdir);
   print "sh sbatch_$epoch.sh &> sbatch_$epoch.log\n";
-  `sh sbatch_$epoch.sh &> sbatch_$epoch.log &`;
+  `sh sbatch_$epoch.sh &> sbatch_$epoch.log `;
 
 }
 
