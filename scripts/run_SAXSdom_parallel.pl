@@ -6,7 +6,7 @@ use File::Basename;
 $GLOBAL_PATH="/data/jh7x3/SAXSDom/";
 
 $numArgs = @ARGV;
-if($numArgs < 7 or $numArgs > 8)
+if($numArgs < 6 or $numArgs > 7)
 {   
 	print "the number of parameters is not correct!\n";
 	exit(1);
@@ -20,10 +20,9 @@ $saxsfile="$ARGV[2]";
 $domainfile="$ARGV[3]";
 $outputdir="$ARGV[4]";
 $epoch="$ARGV[5]";
-$nativefile="$ARGV[6]";
-if($numArgs == 8)
+if($numArgs == 7)
 {
-	$proc_num="$ARGV[7]";
+	$proc_num="$ARGV[6]";
 }
 if($proc_num>10)
 {
@@ -99,9 +98,9 @@ for($decoy=1;$decoy <= $epoch;$decoy++)
 	print RUNFILE "cd $outputdir\n\n";
 	print RUNFILE "mkdir $outputdir/Assembly_docoy$decoy\n";
 	
-	print RUNFILE "printf \"$GLOBAL_PATH/bin/SAXSDom  -i ${targetid}_saxsdom -f  ${targetid}.fasta  -s SCRATCH/${targetid}.ss8    -c metapsicov/${targetid}_initial_domain.cm   -l $domainfile  -m $GLOBAL_PATH/lib/UniCon.iohmm        -e $saxsfile -o $outputdir/Assembly_docoy$decoy -t   -g test_assembly  -d 1 -x  1  --scoreWeight 10_700_700_700 --scoreWeightInitial 10_700_700_700  --scoreCombine  -n $nativefile &> $outputdir/Assembly_docoy$decoy/run.log\\n\\n\"\n";
+	print RUNFILE "printf \"$GLOBAL_PATH/bin/SAXSDom  -i ${targetid}_saxsdom -f  ${targetid}.fasta  -s SCRATCH/${targetid}.ss8    -c metapsicov/${targetid}_initial_domain.cm   -l $domainfile  -m $GLOBAL_PATH/lib/UniCon.iohmm        -e $saxsfile -o $outputdir/Assembly_docoy$decoy -t   -g test_assembly  -d 1 -x  1  --scoreWeight 10_700_700_700 --scoreWeightInitial 10_700_700_700  --scoreCombine  &> $outputdir/Assembly_docoy$decoy/run.log\\n\\n\"\n";
 
-	print RUNFILE "$GLOBAL_PATH/bin/SAXSDom  -i ${targetid}_saxsdom -f  ${targetid}.fasta  -s SCRATCH/${targetid}.ss8    -c metapsicov/${targetid}_initial_domain.cm   -l $domainfile  -m $GLOBAL_PATH/lib/UniCon.iohmm        -e $saxsfile -o $outputdir/Assembly_docoy$decoy -t   -g test_assembly  -d 1 -x  1  --scoreWeight 10_700_700_700 --scoreWeightInitial 10_700_700_700  --scoreCombine  -n $nativefile &> $outputdir/Assembly_docoy$decoy/run.log\n";
+	print RUNFILE "$GLOBAL_PATH/bin/SAXSDom  -i ${targetid}_saxsdom -f  ${targetid}.fasta  -s SCRATCH/${targetid}.ss8    -c metapsicov/${targetid}_initial_domain.cm   -l $domainfile  -m $GLOBAL_PATH/lib/UniCon.iohmm        -e $saxsfile -o $outputdir/Assembly_docoy$decoy -t   -g test_assembly  -d 1 -x  1  --scoreWeight 10_700_700_700 --scoreWeightInitial 10_700_700_700  --scoreCombine  &> $outputdir/Assembly_docoy$decoy/run.log\n";
 	print RUNFILE "rm $outputdir/Assembly_docoy$decoy/sample*\n";
 	print RUNFILE "rm $outputdir/Assembly_docoy$decoy/GlobalFoldon*pdb\n";
 	print RUNFILE "rm $outputdir/Assembly_docoy$decoy/*initial*pdb\n";
@@ -228,7 +227,7 @@ while(1)
   {
     print "$running_num jobs are still running, please wait\n";
   }else{
-    print "All training jobs are done\n\n";
+    print "All running jobs are done\n\n";
     last;
   }
   
@@ -243,55 +242,21 @@ while(1)
 `perl $GLOBAL_PATH/scripts/collect_models.pl $targetid  $outputdir  $outputdir/all_models`;
 
 ### run qprob to rank the model
-#`$GLOBAL_PATH//tools/DeepQA/tools/qprob_package/bin/Qprob.sh $outputdir/${targetid}.fasta  $outputdir/all_models/ $outputdir/all_models_qprob`;
-
-
-
-=pod
-foreach $file (sort @files)
+if(!(-e "$outputdir/all_models_qprob/$targetid.Qprob_score"))
 {
-
-  if($file eq '.' or $file eq '..' or index($file,'.pdb')<0 or index($file,'scwrl')>0 or index($file,'rebuilt')>0)
-  {
-    next;
-  }  
-  
-  $pdbfile = "$pdb_dir/$file";
-  
-  if(index($pdbfile,'/')>=0)
-  {
-    @tmp = split(/\//,$pdbfile);
-    $idname = pop @tmp;
-    $filepath = join('/',@tmp);
-  }
-  if(index($idname,'.pdb')>0)
-  {
-    $idname = substr($idname,0,index($idname,'.pdb'));
-  }
-  
-
-  if(!(-e "$pdb_dir/${idname}_qprob/$idname.Qprob_score"))
-  {
-    die "The $pdb_dir/${idname}_qprob/$idname.Qprob_score failed to be genearted\n";
-  }
-  
-  $qprob_score=10000;  #initialize
-  open(RWPLUS_CHECK, "$pdb_dir/${idname}_qprob/$idname.Qprob_score") || print "Can't open qprob output file.\n";
-  while(<RWPLUS_CHECK>)
-  {
-      $line = $_;
-      $line =~ s/\n//;
-    @tem_split=split(/\s+/,$line);
-    $qprob_score=$tem_split[1];
-  }
-  close RWPLUS_CHECK;
-  
-  print "qprob score of $idname: $qprob_score\n";
-  $pdb2dfire{$file} =  $qprob_score;
-  `rm $filepath/$idname.rebuilt.pdb`;
-  `rm $filepath/$idname.rebuilt.scwrl.pdb`;
+	`$GLOBAL_PATH//tools/DeepQA/tools/qprob_package/bin/Qprob.sh $outputdir/${targetid}.fasta  $outputdir/all_models/ $outputdir/all_models_qprob`;
+}else{
+	print "Ranking score for models can be found at $outputdir/all_models_qprob/$targetid.Qprob_score";
 }
 
-=cut
+  open(QPROB_CHECK, "$outputdir/all_models_qprob/$targetid.Qprob_score") || print "Can't open qprob output file.\n";
+  @content = <QPROB_CHECK>;
+  close QPROB_CHECK;
+  $best_model_info = shift @content;
+  @tem_split=split(/\s+/,$best_model_info);
+  $best_model=$tem_split[0];
+  
+  `cp $outputdir/all_models/$best_model $outputdir/${targetid}_SAXSDom_top1.pdb`;
 
 
+print "\n\nBest model: $outputdir/${targetid}_SAXSDom_top1.pdb\n";

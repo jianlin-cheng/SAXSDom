@@ -9,6 +9,9 @@ installation/SAXSDom_test_files/T1-run-3p02A.sh
 
 ### scripts
 scripts/run_SAXSdom_parallel.pl
+scripts/run_SAXSdom_abinitio_parallel.pl
+scripts/run_SAXSdom_benchmark_parallel.pl
+scripts/run_SAXSdom_abinitio_benchmark_parallel.pl
 
 ### Setup Mocapy src
 installation/Mocapy_src/examples/CMakeLists.txt
