@@ -6,7 +6,7 @@ if [ "$#" -ne 6 ]; then
   exit 1
 fi
 
-GLOBAL_PATH=/storage/jhou4/Projects/SAXSDom/SAXSDom/;
+GLOBAL_PATH=/data/jh7x3/SAXSDom/;
 export LD_LIBRARY_PATH=$GLOBAL_PATH/tools/IMP2.6/lib:$GLOBAL_PATH/tools/boost_1_55_0/lib:$LD_LIBRARY_PATH
 
 targetid=$1
@@ -47,7 +47,7 @@ fi
 
 for ((decoy=1;decoy <= $epoch;decoy++))
 {
-    decoymodel=$outputdir/Assembly_docoy$decoy/${targetid}_siminit_Wsaxs_regularize_000001.rebuilt.pdb;
+    decoymodel=$outputdir/Assembly_docoy$decoy/${targetid}_saxsdom_000001.rebuilt.pdb;
     if [ -f "$decoymodel" ]
     then
     	echo "$decoymodel found! Pass\n";
