@@ -175,7 +175,7 @@ if(! -d "benchmark")
 }
 =cut
 
-system("mv $install_dir/installation/SAXSDom_test_codes/T0_run_SAXSDom*.sh $install_dir/examples");
+system("mv $install_dir/installation/SAXSDom_test_files/T*run*.sh $install_dir/examples");
 system("chmod +x $install_dir/examples/*.sh");
 
 
