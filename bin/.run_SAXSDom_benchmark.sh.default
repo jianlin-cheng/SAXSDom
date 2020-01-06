@@ -64,3 +64,11 @@ for ((decoy=1;decoy <= $epoch;decoy++))
    rm $outputdir/Assembly_docoy$decoy/GlobalFoldon*pdb
    rm $outputdir/Assembly_docoy$decoy/*initial*pdb
 }
+
+### collect all models for evalution
+perl $GLOBAL_PATH/scripts/collect_models.pl $targetid  $outputdir  $outputdir/all_models
+
+### run qprob to rank the model
+$GLOBAL_PATH//tools/DeepQA/tools/qprob_package/bin/Qprob.sh $outputdir/${targetid}.fasta  $outputdir/all_models/ $outputdir/all_models_qprob
+
+
