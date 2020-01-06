@@ -1,5 +1,12 @@
 ### setup bin 
 bin/run_SAXSDom.sh
+bin/run_SAXSDom_benchmark.sh
+bin/run_SAXSDom_abinitio.sh
+bin/run_SAXSDom_abinitio_benchmark.sh
+
+### example
+installation/SAXSDom_test_files/T1-run-3p02A.sh
+
 
 ### Setup Mocapy src
 installation/Mocapy_src/examples/CMakeLists.txt
