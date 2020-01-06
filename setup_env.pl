@@ -447,7 +447,7 @@ foreach $tool (@basic_tools)
 	{
 		`rm $tool`;
 	}
-	`wget http://sysbio.rnet.missouri.edu/multicom_db_tools/tools/$tool`;
+	`wget http://daisy.rnet.missouri.edu/multicom_db_tools/tools/$tool`;
 	if(-e "$tool")
 	{
 		print "\n\t$tool is found, start extracting files......\n\n";
@@ -456,7 +456,7 @@ foreach $tool (@basic_tools)
 		`rm $tool`;
 		`chmod -R 755 $toolname`;
 	}else{
-		die "Failed to download $tool from http://sysbio.rnet.missouri.edu/multicom_db_tools/tools, please contact chengji\@missouri.edu\n";
+		die "Failed to download $tool from http://daisy.rnet.missouri.edu/multicom_db_tools/tools, please contact chengji\@missouri.edu\n";
 	}
 }
 
