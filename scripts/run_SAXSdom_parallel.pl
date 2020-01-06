@@ -3,40 +3,68 @@
 use Cwd 'abs_path';
 use File::Basename;
 
+$GLOBAL_PATH="SOFTWARE_PATH";
 
 $numArgs = @ARGV;
-if($numArgs != 4)
+if($numArgs < 7)
 {   
 	print "the number of parameters is not correct!\n";
 	exit(1);
 }
 
-$pdb_dir	= abs_path($ARGV[0]);  # 
-$tool_dir	= "$ARGV[1]"; #
-$scoreout	= "$ARGV[2]"; #
-$proc_num 	= "$ARGV[3]"; #
+$proc_num = 1;
 
+$targetid="$ARGV[0]";
+$seqfile="$ARGV[1]";
+$saxsfile="$ARGV[2]";
+$domainfile="$ARGV[3]";
+$outputdir="$ARGV[4]";
+$epoch="$ARGV[5]";
+$nativefile="$ARGV[6]";
+$proc_num="$ARGV[7]";
 
+if($proc_num>10)
+{
+	$proc_num = 10;
+}
 
 $script_dir = abs_path(dirname($0));
-$pulchar_program = "$tool_dir/pulchra_306/pulchra";
-$scwrl4_program = "$tool_dir/scwrl4/Scwrl4";
 
-
-if(!(-e $pulchar_program))
+if(!(-e $seqfile))
 {
-  die "Failed to find $pulchar_program\n";
+  die "Failed to find $seqfile\n";
 }
 
-if(!(-e $scwrl4_program))
+if(!(-e $saxsfile))
 {
-  die "Failed to find $scwrl4_program\n";
+  die "Failed to find $saxsfile\n";
 }
 
-if(!(-e "$tool_dir/qprob_package/bin/Qprob.sh"))
+if(!(-e "$GLOBAL_PATH/tools/SCRATCH-1D_1.1/bin/run_SCRATCH-1D_predictors.sh"))
 {
-  die "Failed to find $tool_dir/qprob_package/bin/Qprob.sh\n";
+  die "Failed to find $GLOBAL_PATH/tools/SCRATCH-1D_1.1/bin/run_SCRATCH-1D_predictors.sh\n";
 }
+
+
+`mkdir -p $outputdir`;
+
+chdir($outputdir);
+
+`mkdir -p $outputdir/SCRATCH/`;
+`mkdir -p $outputdir/metapsicov/`;
+`python2 $GLOBAL_PATH/scripts/init_cm.py  --fasta ${seqfile}   > $outputdir/metapsicov/${targetid}_initial_domain.cm`;
+
+if(!(-e "./SCRATCH/${targetid}.ss8"))
+{
+	print "./SCRATCH/${targetid}.ss8  found!\n";
+}else
+{
+	print "./SCRATCH/${targetid}.ss8 not exists, need generate!\n";
+    `$GLOBAL_PATH/tools/SCRATCH-1D_1.1/bin/run_SCRATCH-1D_predictors.sh ${seqfile} $outputdir/SCRATCH/${targetid}`;
+}
+
+`cp ${seqfile} ${targetid}.fasta`;
+
 
 
 opendir(DIR,"$pdb_dir") || die "failed to open directory $pdb_dir\n";
@@ -47,7 +75,7 @@ closedir(DIR);
 
 %pdb2dfire=();
 
-$shell_dir = "$pdb_dir/run_src";
+$shell_dir = "$outputdir/run_src";
 if(-d $shell_dir)
 {
 	`rm -rf $shell_dir`;
@@ -57,72 +85,34 @@ if(-d $shell_dir)
 }
 
 $shell_indx = 0;
-foreach $file (sort @files)
+for($decoy=1;$decoy <= $epoch;$decoy++)
 {
 
-  if($file eq '.' or $file eq '..' or index($file,'.pdb')<0 or index($file,'scwrl')>0 or index($file,'rebuilt')>0)
-  {
-    next;
-  }
   
-  $pdbfile = "$pdb_dir/$file";
-  
-  if(index($pdbfile,'/')>=0)
-  {
-    @tmp = split(/\//,$pdbfile);
-    $idname = pop @tmp;
-    $filepath = join('/',@tmp);
-  }
-  if(index($idname,'.pdb')>0)
-  {
-    $idname = substr($idname,0,index($idname,'.pdb'));
-  }
-  
-  #### run pulchar on pdb file 
-  #print "$pulchar_program $pdbfile\n";
-  `$pulchar_program $pdbfile`;
-  if(!(-e "$filepath/$idname.rebuilt.pdb"))
-  {
-    die "The $filepath/$idname.rebuilt.pdb failed to be genearted\n";
-  }
-  
-  #### run scwrl on pdb file 
-  
-  #print "$scwrl4_program -i $filepath/$idname.rebuilt.pdb -o $filepath/$idname.rebuilt.scwrl.pdb\n";
-  `$scwrl4_program -i $filepath/$idname.rebuilt.pdb -o $filepath/$idname.rebuilt.scwrl.pdb`;
-  if(!(-e "$filepath/$idname.rebuilt.scwrl.pdb"))
-  {
-    die "The $filepath/$idname.rebuilt.scwrl.pdb failed to be genearted\n";
-  }
-  
-  #### run qprob on pdb file 
-  if(!(-e "$pdb_dir/${idname}_qprob/$idname.Qprob_score"))
-  {
-		$shell_indx++;
-		open(RUNFILE,">$shell_dir/job_$shell_indx.sh") || die "Failed to write $shell_dir/job_$shell_indx.sh\n\n";
-		`touch $shell_dir/job_$shell_indx.queued`;
-		print RUNFILE "#!/bin/bash\n\n";
-		print RUNFILE "mv $shell_dir/job_$shell_indx.queued $shell_dir/job_$shell_indx.running\n\n";
-		print RUNFILE "mkdir $pdb_dir/${idname}_qprob\n";
-		print RUNFILE "cp $filepath/$idname.rebuilt.scwrl.pdb $filepath/${idname}_qprob/${idname}_scwrl.pdb\n"; 
-		print RUNFILE "cd $pdb_dir/${idname}_qprob\n";
-		print RUNFILE "perl $script_dir/pdb2fasta.pl $pdb_dir/${idname}_qprob/${idname}_scwrl.pdb $pdb_dir/${idname}_qprob/$idname $idname.fasta\n"; 
+  $decoymodel="$outputdir/Assembly_docoy$decoy/${targetid}_saxsdom_000001.rebuilt.pdb";
 
-		print RUNFILE "mkdir models\n"; 
-		print RUNFILE "cp $pdb_dir/${idname}_qprob/${idname}_scwrl.pdb models\n"; 
-		print RUNFILE "printf \"$tool_dir/qprob_package/bin/Qprob.sh $pdb_dir/${idname}_qprob/$idname.fasta   $pdb_dir/${idname}_qprob/models  $pdb_dir/${idname}_qprob/ &> $pdb_dir/${idname}_qprob/run.log\\n\\n\"\n";
-		print RUNFILE "$tool_dir/qprob_package/bin/Qprob.sh $pdb_dir/${idname}_qprob/$idname.fasta   $pdb_dir/${idname}_qprob/models  $pdb_dir/${idname}_qprob/ &> $pdb_dir/${idname}_qprob/run.log\n\n";
-        #print RUNFILE "/storage/htc/bdm/tools/qprob_package/bin/Qprob.sh $pdb_dir/${idname}_qprob/$idname.fasta   $pdb_dir/${idname}_qprob/models  $pdb_dir/${idname}_qprob/ &> $pdb_dir/${idname}_qprob/run.log\n\n";
-		print RUNFILE "mv $shell_dir/job_$shell_indx.running $shell_dir/job_$shell_indx.done";
-		close RUNFILE;
+  #### run qprob on pdb file 
+  if(!(-e "$decoymodel"))
+  {
+  	print "start generate $decoymodel found!\n";
+
+	$shell_indx++;
+	open(RUNFILE,">$shell_dir/job_$shell_indx.sh") || die "Failed to write $shell_dir/job_$shell_indx.sh\n\n";
+	`touch $shell_dir/job_$shell_indx.queued`;
+	print RUNFILE "#!/bin/bash\n\n";
+	print RUNFILE "mv $shell_dir/job_$shell_indx.queued $shell_dir/job_$shell_indx.running\n\n";
+	print RUNFILE "mkdir $outputdir/Assembly_docoy$decoy\n";
+	print RUNFILE "printf \"$GLOBAL_PATH/bin/SAXSDom  -i ${targetid}_saxsdom -f  ${targetid}.fasta  -s SCRATCH/${targetid}.ss8    -c metapsicov/${targetid}_initial_domain.cm   -l $domainfile  -m $GLOBAL_PATH/lib/UniCon.iohmm        -e $saxsfile -o $outputdir/Assembly_docoy$decoy -t   -g test_assembly  -d 1 -x  1  --scoreWeight 10_700_700_700 --scoreWeightInitial 10_700_700_700  --scoreCombine  -n $nativefile$GLOBAL_PATH/bin/SAXSDom  -i ${targetid}_saxsdom -f  ${targetid}.fasta  -s SCRATCH/${targetid}.ss8    -c metapsicov/${targetid}_initial_domain.cm   -l $domainfile  -m $GLOBAL_PATH/lib/UniCon.iohmm        -e $saxsfile -o $outputdir/Assembly_docoy$decoy -t   -g test_assembly  -d 1 -x  1  --scoreWeight 10_700_700_700 --scoreWeightInitial 10_700_700_700  --scoreCombine  -n $nativefile &> $outputdir/Assembly_docoy$decoy/run.log\\n\\n\"\n";
+	print RUNFILE "$GLOBAL_PATH/bin/SAXSDom  -i ${targetid}_saxsdom -f  ${targetid}.fasta  -s SCRATCH/${targetid}.ss8    -c metapsicov/${targetid}_initial_domain.cm   -l $domainfile  -m $GLOBAL_PATH/lib/UniCon.iohmm        -e $saxsfile -o $outputdir/Assembly_docoy$decoy -t   -g test_assembly  -d 1 -x  1  --scoreWeight 10_700_700_700 --scoreWeightInitial 10_700_700_700  --scoreCombine  -n $nativefile$GLOBAL_PATH/bin/SAXSDom  -i ${targetid}_saxsdom -f  ${targetid}.fasta  -s SCRATCH/${targetid}.ss8    -c metapsicov/${targetid}_initial_domain.cm   -l $domainfile  -m $GLOBAL_PATH/lib/UniCon.iohmm        -e $saxsfile -o $outputdir/Assembly_docoy$decoy -t   -g test_assembly  -d 1 -x  1  --scoreWeight 10_700_700_700 --scoreWeightInitial 10_700_700_700  --scoreCombine  -n $nativefile &> $outputdir/Assembly_docoy$decoy/run.log\n\n";
+	print RUNFILE "rm $outputdir/Assembly_docoy$decoy/sample*";
+	print RUNFILE "rm $outputdir/Assembly_docoy$decoy/GlobalFoldon*pdb";
+	print RUNFILE "rm $outputdir/Assembly_docoy$decoy/*initial*pdb";
+	print RUNFILE "mv $shell_dir/job_$shell_indx.running $shell_dir/job_$shell_indx.done";
+	close RUNFILE;
   }else{
-	print "$pdb_dir/${idname}_qprob/$idname.Qprob_score already generated\n";
+	print "$decoymodel found! Pass\n";
   }
 }
-
-
-
-
 
 
 ##########################  Submiting jobs in parallel
@@ -251,6 +241,15 @@ while(1)
 
 ##### summarize results
 
+### collect all models for evalution
+`perl $GLOBAL_PATH/scripts/collect_models.pl $targetid  $outputdir  $outputdir/all_models`;
+
+### run qprob to rank the model
+#`$GLOBAL_PATH//tools/DeepQA/tools/qprob_package/bin/Qprob.sh $outputdir/${targetid}.fasta  $outputdir/all_models/ $outputdir/all_models_qprob`;
+
+
+
+=pod
 foreach $file (sort @files)
 {
 
@@ -295,10 +294,6 @@ foreach $file (sort @files)
   `rm $filepath/$idname.rebuilt.scwrl.pdb`;
 }
 
+=cut
 
-open(OUT,">$scoreout") || die "Failed to open file $scoreout\n";
-foreach $model (sort {$pdb2dfire{$b} <=> $pdb2dfire{$a}} keys %pdb2dfire)
-{
-  print OUT "$model\t".$pdb2dfire{$model}."\n";
-}
-close OUT;
+
