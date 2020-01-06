@@ -27,11 +27,11 @@ sh compile_SAXSDom.sh
 ```
 
 **Example**
-
+```
 cd examples
 
 sh T1-run-3p02A.sh
-
+```
 
 
 
