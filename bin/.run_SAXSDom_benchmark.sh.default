@@ -48,7 +48,7 @@ fi
 
 for ((decoy=1;decoy <= $epoch;decoy++))
 {
-    decoymodel=$outputdir/Assembly_docoy$decoy/${targetid}_000001.rebuilt.pdb;
+    decoymodel=$outputdir/Assembly_docoy$decoy/${targetid}_saxsdom_000001.rebuilt.pdb;
     if [ -f "$decoymodel" ]
     then
     	echo "$decoymodel found! Pass\n";
