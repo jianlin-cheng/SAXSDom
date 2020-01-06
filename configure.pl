@@ -113,6 +113,7 @@ if (! -f $option_list)
 }
 configure_file2($option_list,'bin');
 configure_file2($option_list,'installation');
+configure_file2($option_list,'scripts');
 print "#########  Configuring option files, done\n\n\n";
 
 

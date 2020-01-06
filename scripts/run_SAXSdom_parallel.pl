@@ -3,10 +3,10 @@
 use Cwd 'abs_path';
 use File::Basename;
 
-$GLOBAL_PATH="SOFTWARE_PATH";
+$GLOBAL_PATH="/data/jh7x3/SAXSDom/";
 
 $numArgs = @ARGV;
-if($numArgs < 7)
+if($numArgs < 7 or $numArgs > 8)
 {   
 	print "the number of parameters is not correct!\n";
 	exit(1);
@@ -21,14 +21,15 @@ $domainfile="$ARGV[3]";
 $outputdir="$ARGV[4]";
 $epoch="$ARGV[5]";
 $nativefile="$ARGV[6]";
-$proc_num="$ARGV[7]";
-
+if($numArgs == 8)
+{
+	$proc_num="$ARGV[7]";
+}
 if($proc_num>10)
 {
 	$proc_num = 10;
 }
 
-$script_dir = abs_path(dirname($0));
 
 if(!(-e $seqfile))
 {
@@ -54,12 +55,12 @@ chdir($outputdir);
 `mkdir -p $outputdir/metapsicov/`;
 `python2 $GLOBAL_PATH/scripts/init_cm.py  --fasta ${seqfile}   > $outputdir/metapsicov/${targetid}_initial_domain.cm`;
 
-if(!(-e "./SCRATCH/${targetid}.ss8"))
+if((-e "$outputdir/SCRATCH/${targetid}.ss8"))
 {
-	print "./SCRATCH/${targetid}.ss8  found!\n";
+	print "$outputdir/SCRATCH/${targetid}.ss8  found!\n";
 }else
 {
-	print "./SCRATCH/${targetid}.ss8 not exists, need generate!\n";
+	print "$outputdir/SCRATCH/${targetid}.ss8 not exists, need generate!\n";
     `$GLOBAL_PATH/tools/SCRATCH-1D_1.1/bin/run_SCRATCH-1D_predictors.sh ${seqfile} $outputdir/SCRATCH/${targetid}`;
 }
 
@@ -67,13 +68,6 @@ if(!(-e "./SCRATCH/${targetid}.ss8"))
 
 
 
-opendir(DIR,"$pdb_dir") || die "failed to open directory $pdb_dir\n";
-
-@files = readdir(DIR);
-
-closedir(DIR);
-
-%pdb2dfire=();
 
 $shell_dir = "$outputdir/run_src";
 if(-d $shell_dir)
@@ -94,20 +88,24 @@ for($decoy=1;$decoy <= $epoch;$decoy++)
   #### run qprob on pdb file 
   if(!(-e "$decoymodel"))
   {
-  	print "start generate $decoymodel found!\n";
+  	print "start generating $decoymodel!\n";
 
 	$shell_indx++;
 	open(RUNFILE,">$shell_dir/job_$shell_indx.sh") || die "Failed to write $shell_dir/job_$shell_indx.sh\n\n";
 	`touch $shell_dir/job_$shell_indx.queued`;
 	print RUNFILE "#!/bin/bash\n\n";
+	print RUNFILE "export LD_LIBRARY_PATH=$GLOBAL_PATH/tools/IMP2.6/lib:$GLOBAL_PATH/tools/boost_1_55_0/lib:\$LD_LIBRARY_PATH\n";
 	print RUNFILE "mv $shell_dir/job_$shell_indx.queued $shell_dir/job_$shell_indx.running\n\n";
+	print RUNFILE "cd $outputdir\n\n";
 	print RUNFILE "mkdir $outputdir/Assembly_docoy$decoy\n";
-	print RUNFILE "printf \"$GLOBAL_PATH/bin/SAXSDom  -i ${targetid}_saxsdom -f  ${targetid}.fasta  -s SCRATCH/${targetid}.ss8    -c metapsicov/${targetid}_initial_domain.cm   -l $domainfile  -m $GLOBAL_PATH/lib/UniCon.iohmm        -e $saxsfile -o $outputdir/Assembly_docoy$decoy -t   -g test_assembly  -d 1 -x  1  --scoreWeight 10_700_700_700 --scoreWeightInitial 10_700_700_700  --scoreCombine  -n $nativefile$GLOBAL_PATH/bin/SAXSDom  -i ${targetid}_saxsdom -f  ${targetid}.fasta  -s SCRATCH/${targetid}.ss8    -c metapsicov/${targetid}_initial_domain.cm   -l $domainfile  -m $GLOBAL_PATH/lib/UniCon.iohmm        -e $saxsfile -o $outputdir/Assembly_docoy$decoy -t   -g test_assembly  -d 1 -x  1  --scoreWeight 10_700_700_700 --scoreWeightInitial 10_700_700_700  --scoreCombine  -n $nativefile &> $outputdir/Assembly_docoy$decoy/run.log\\n\\n\"\n";
-	print RUNFILE "$GLOBAL_PATH/bin/SAXSDom  -i ${targetid}_saxsdom -f  ${targetid}.fasta  -s SCRATCH/${targetid}.ss8    -c metapsicov/${targetid}_initial_domain.cm   -l $domainfile  -m $GLOBAL_PATH/lib/UniCon.iohmm        -e $saxsfile -o $outputdir/Assembly_docoy$decoy -t   -g test_assembly  -d 1 -x  1  --scoreWeight 10_700_700_700 --scoreWeightInitial 10_700_700_700  --scoreCombine  -n $nativefile$GLOBAL_PATH/bin/SAXSDom  -i ${targetid}_saxsdom -f  ${targetid}.fasta  -s SCRATCH/${targetid}.ss8    -c metapsicov/${targetid}_initial_domain.cm   -l $domainfile  -m $GLOBAL_PATH/lib/UniCon.iohmm        -e $saxsfile -o $outputdir/Assembly_docoy$decoy -t   -g test_assembly  -d 1 -x  1  --scoreWeight 10_700_700_700 --scoreWeightInitial 10_700_700_700  --scoreCombine  -n $nativefile &> $outputdir/Assembly_docoy$decoy/run.log\n\n";
-	print RUNFILE "rm $outputdir/Assembly_docoy$decoy/sample*";
-	print RUNFILE "rm $outputdir/Assembly_docoy$decoy/GlobalFoldon*pdb";
-	print RUNFILE "rm $outputdir/Assembly_docoy$decoy/*initial*pdb";
-	print RUNFILE "mv $shell_dir/job_$shell_indx.running $shell_dir/job_$shell_indx.done";
+	
+	print RUNFILE "printf \"$GLOBAL_PATH/bin/SAXSDom  -i ${targetid}_saxsdom -f  ${targetid}.fasta  -s SCRATCH/${targetid}.ss8    -c metapsicov/${targetid}_initial_domain.cm   -l $domainfile  -m $GLOBAL_PATH/lib/UniCon.iohmm        -e $saxsfile -o $outputdir/Assembly_docoy$decoy -t   -g test_assembly  -d 1 -x  1  --scoreWeight 10_700_700_700 --scoreWeightInitial 10_700_700_700  --scoreCombine  -n $nativefile &> $outputdir/Assembly_docoy$decoy/run.log\\n\\n\"\n";
+
+	print RUNFILE "$GLOBAL_PATH/bin/SAXSDom  -i ${targetid}_saxsdom -f  ${targetid}.fasta  -s SCRATCH/${targetid}.ss8    -c metapsicov/${targetid}_initial_domain.cm   -l $domainfile  -m $GLOBAL_PATH/lib/UniCon.iohmm        -e $saxsfile -o $outputdir/Assembly_docoy$decoy -t   -g test_assembly  -d 1 -x  1  --scoreWeight 10_700_700_700 --scoreWeightInitial 10_700_700_700  --scoreCombine  -n $nativefile &> $outputdir/Assembly_docoy$decoy/run.log\n";
+	print RUNFILE "rm $outputdir/Assembly_docoy$decoy/sample*\n";
+	print RUNFILE "rm $outputdir/Assembly_docoy$decoy/GlobalFoldon*pdb\n";
+	print RUNFILE "rm $outputdir/Assembly_docoy$decoy/*initial*pdb\n";
+	print RUNFILE "mv $shell_dir/job_$shell_indx.running $shell_dir/job_$shell_indx.done\n";
 	close RUNFILE;
   }else{
 	print "$decoymodel found! Pass\n";
