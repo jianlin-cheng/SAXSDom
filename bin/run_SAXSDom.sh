@@ -1,12 +1,12 @@
 #!/bin/bash
 
-if [ "$#" -ne 7 ]; then
+if [ "$#" -ne 6 ]; then
   echo "Usage: $0 the number of parameter ($#) is not correct!" >&2
 
   exit 1
 fi
 
-GLOBAL_PATH=/storage/htc/bdm/jh7x3/DomainOrientation_project/SAXSDom/;
+GLOBAL_PATH=/storage/jhou4/Projects/SAXSDom/SAXSDom/;
 export LD_LIBRARY_PATH=$GLOBAL_PATH/tools/IMP2.6/lib:$GLOBAL_PATH/tools/boost_1_55_0/lib:$LD_LIBRARY_PATH
 
 targetid=$1
@@ -14,8 +14,7 @@ seqfile=$2
 saxsfile=$3
 domainfile=$4
 outputdir=$5
-arguments=$6 # '  -t   -g test_assembly  -d 1 -x  3  --scoreWeight 0_800_0_0 --scoreWeightInitial 0_800_0_0  --scoreWeightFinal 1_100_1_1  --scoreWeightPenalyInitial 0.0001_0.0001_0.0001_0.0001  --scoreWeightPenalyFinal 10_20_10_10 --reg   --scoreFun KL'
-epoch=$7
+epoch=$6
 
 mkdir -p $outputdir
 
@@ -57,8 +56,8 @@ for ((decoy=1;decoy <= $epoch;decoy++))
     	echo "start decoy $decoy\n\n"
     fi
 
-    echo "$GLOBAL_PATH/bin/SAXSDom  -i ${targetid}_siminit_Wsaxs_regularize -f  ${targetid}.fasta  -s SCRATCH/${targetid}.ss8    -c metapsicov/${targetid}_initial_domain.cm   -l $domainfile  -m $GLOBAL_PATH/lib/UniCon.iohmm       -e $saxsfile -o $outputdir/Assembly_docoy$decoy   $arguments\n\n" 
-   $GLOBAL_PATH/bin/SAXSDom  -i ${targetid}_siminit_Wsaxs_regularize -f  ${targetid}.fasta  -s SCRATCH/${targetid}.ss8    -c metapsicov/${targetid}_initial_domain.cm   -l $domainfile  -m $GLOBAL_PATH/lib/UniCon.iohmm        -e $saxsfile -o $outputdir/Assembly_docoy$decoy   $arguments
+    echo "$GLOBAL_PATH/bin/SAXSDom  -i ${targetid}_saxsdom -f  ${targetid}.fasta  -s SCRATCH/${targetid}.ss8    -c metapsicov/${targetid}_initial_domain.cm   -l $domainfile  -m $GLOBAL_PATH/lib/UniCon.iohmm       -e $saxsfile -o $outputdir/Assembly_docoy$decoy -t   -g test_assembly  -d 1 -x  1  --scoreWeight 10_700_700_700 --scoreWeightInitial 10_700_700_700  --scoreCombine\n\n" 
+   $GLOBAL_PATH/bin/SAXSDom  -i ${targetid}_saxsdom -f  ${targetid}.fasta  -s SCRATCH/${targetid}.ss8    -c metapsicov/${targetid}_initial_domain.cm   -l $domainfile  -m $GLOBAL_PATH/lib/UniCon.iohmm        -e $saxsfile -o $outputdir/Assembly_docoy$decoy -t   -g test_assembly  -d 1 -x  1  --scoreWeight 10_700_700_700 --scoreWeightInitial 10_700_700_700  --scoreCombine
    
    rm $outputdir/Assembly_docoy$decoy/sample*
    rm $outputdir/Assembly_docoy$decoy/GlobalFoldon*pdb
