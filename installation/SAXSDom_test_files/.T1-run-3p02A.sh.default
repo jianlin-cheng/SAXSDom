@@ -1,0 +1,31 @@
+#!/bin/bash
+#SBATCH -J  3p02A
+#SBATCH -o 3p02A-%j.out
+#SBATCH --partition Lewis,hpc5,hpc4
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=5
+#SBATCH --mem-per-cpu=2G
+#SBATCH --time 2-00:00
+
+dtime=$(date +%m%d%y)
+
+GLOBAL_PATH=SOFTWARE_PATH;
+export LD_LIBRARY_PATH=$GLOBAL_PATH/tools/IMP2.6/lib:$GLOBAL_PATH/tools/boost_1_55_0/lib:$LD_LIBRARY_PATH
+
+
+mkdir -p SOFTWARE_PATH/test_out/3p02A_test/
+cd SOFTWARE_PATH/test_out/3p02A_test/
+
+
+echo SOFTWARE_PATH/examples/3p02A_D1_prediction.pdb > SOFTWARE_PATH/test_out/3p02A_test/domain_pdb_list
+echo SOFTWARE_PATH/examples/3p02A_D2_prediction.pdb >> SOFTWARE_PATH/test_out/3p02A_test/domain_pdb_list
+
+SOFTWARE_PATH/bin/run_SAXSDom.sh 3p02A SOFTWARE_PATH/examples/3p02A.fasta  SOFTWARE_PATH/examples/saxs_profile.dat SOFTWARE_PATH/test_out/3p02A_test/domain_pdb_list SOFTWARE_PATH/test_out/3p02A_test/ 50 SOFTWARE_PATH/examples/native.pdb  2>&1 | tee  SOFTWARE_PATH/test_out/3p02A_test.log
+
+printf "\nFinished.."
+printf "\nCheck log file <SOFTWARE_PATH/test_out/3p02A_test.log>\n\n"
+
+
+
+rm SOFTWARE_PATH/test_out/3p02A_test.running
