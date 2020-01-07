@@ -17,6 +17,7 @@ scripts/run_SAXSdom_abinitio_benchmark_parallel.pl
 ### examples
 examples/3p02A/domain_list_withPath_reindex
 examples/RcPutA/domain_list_withPath_reindex
+examples/SASDBJ3/domain_list_withPath_reindex
 
 ### Setup Mocapy src
 installation/Mocapy_src/examples/CMakeLists.txt
