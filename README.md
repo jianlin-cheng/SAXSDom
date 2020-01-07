@@ -107,10 +107,11 @@ sh T1-run-RcPutA.sh
 Usage:
 sh bin/run_SAXSDom.sh <target id> <fasta file> <saxs file> <domain list with path> <output directory> <number of cores to run, default:1>
 
-Example:
+Example I:
 sh bin/run_SAXSDom.sh 3p02A  examples/3p02A/3p02A.fasta  examples/3p02A/saxs_profile.dat examples/3p02A/domain_list_withPath_reindex  test_out/3p02A 5
 
-### output:
+Example II:
+sh bin/run_SAXSDom.sh RcPutA  examples/RcPutA/RcPutA_full.fasta  examples/RcPutA/RcH7m23.dat examples/RcPutA/domain_list_withPath_reindex  test_out/RcPutA 5
 
 ```
 
@@ -120,10 +121,11 @@ sh bin/run_SAXSDom.sh 3p02A  examples/3p02A/3p02A.fasta  examples/3p02A/saxs_pro
 Usage:
 sh bin/run_SAXSDom_abinitio.sh <target id> <fasta file> <domain list with path> <output directory> <number of cores to run, default:1>
 
-Example:
+Example I:
 sh bin/run_SAXSDom_abinitio.sh 3p02A  examples/3p02A/3p02A.fasta  examples/3p02A/domain_list_withPath_reindex  test_out/3p02A_abinitio 5
 
-### output:
+Example II:
+sh bin/run_SAXSDom_abinitio.sh RcPutA  examples/RcPutA/RcPutA_full.fasta  examples/RcPutA/domain_list_withPath_reindex  test_out/RcPutA_abinitio 5
 
 ```
 
