@@ -97,9 +97,10 @@ GDT-HA-score= 0.4738 %(d<0.5)=0.4262 %(d<1)=0.4557 %(d<2)=0.4754 %(d<4)=0.5377
 <h4> Run SAXSDom </h4>
 
 ```
+Usage:
 sh bin/run_SAXSDom.sh <target id> <fasta file> <saxs file> <domain list with path> <output directory> <number of cores to run, default:1>
 
-ex.
+Example:
 sh bin/run_SAXSDom.sh 3p02A  examples/3p02A/3p02A.fasta  examples/3p02A/saxs_profile.dat examples/3p02A/domain_list_withPath_reindex  test_out/3p02A 5
 
 ### output:
@@ -107,6 +108,17 @@ sh bin/run_SAXSDom.sh 3p02A  examples/3p02A/3p02A.fasta  examples/3p02A/saxs_pro
 ```
 
 <h4> Run SAXSDom-abinitio </h4>
+
+```
+Usage:
+sh bin/run_SAXSDom_abinitio.sh <target id> <fasta file> <domain list with path> <output directory> <number of cores to run, default:1>
+
+Example:
+sh bin/run_SAXSDom_abinitio.sh 3p02A  examples/3p02A/3p02A.fasta  examples/3p02A/saxs_profile.dat examples/3p02A/domain_list_withPath_reindex  test_out/3p02A_abinitio 5
+
+### output:
+
+```
 
 <h4> Run Modeller </h4>
 
