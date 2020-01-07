@@ -1,0 +1,31 @@
+#!/bin/bash
+#SBATCH -J  RcPutA
+#SBATCH -o RcPutA-%j.out
+#SBATCH --partition Lewis,hpc5,hpc4
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=5
+#SBATCH --mem-per-cpu=2G
+#SBATCH --time 2-00:00
+
+dtime=$(date +%m%d%y)
+
+GLOBAL_PATH=SOFTWARE_PATH;
+export LD_LIBRARY_PATH=$GLOBAL_PATH/tools/IMP2.6/lib:$GLOBAL_PATH/tools/boost_1_55_0/lib:$LD_LIBRARY_PATH
+
+
+mkdir -p SOFTWARE_PATH/test_out/RcPutA_test/
+cd SOFTWARE_PATH/test_out/RcPutA_test/
+
+
+echo SOFTWARE_PATH/examples/RcPutA/RcPutASwissOct2019_1-972_reindex.pdb > SOFTWARE_PATH/test_out/RcPutA_test/domain_pdb_list
+echo SOFTWARE_PATH/examples/RcPutA/RcPutASwissOct2019_994-1127_reindex.pdb >> SOFTWARE_PATH/test_out/RcPutA_test/domain_pdb_list
+
+sh SOFTWARE_PATH/bin/run_SAXSDom_benchmark.sh RcPutA SOFTWARE_PATH/examples/RcPutA/RcPutA_full.fasta  SOFTWARE_PATH/examples/RcPutA/RcH7m23.dat SOFTWARE_PATH/test_out/RcPutA_test/domain_pdb_list SOFTWARE_PATH/test_out/RcPutA_test/ 5 SOFTWARE_PATH/examples/RcPutA/RcPutASwissOct2019.pdb 2>&1 | tee  SOFTWARE_PATH/test_out/RcPutA_test.log
+
+printf "\nFinished.."
+printf "\nCheck log file <SOFTWARE_PATH/test_out/RcPutA_test.log>\n\n"
+
+
+
+rm SOFTWARE_PATH/test_out/RcPutA_test.running
