@@ -21,7 +21,7 @@ cd SOFTWARE_PATH/test_out/RcPutA_test/
 echo SOFTWARE_PATH/examples/RcPutA/RcPutASwissOct2019_1-972_reindex.pdb > SOFTWARE_PATH/test_out/RcPutA_test/domain_pdb_list
 echo SOFTWARE_PATH/examples/RcPutA/RcPutASwissOct2019_994-1127_reindex.pdb >> SOFTWARE_PATH/test_out/RcPutA_test/domain_pdb_list
 
-sh SOFTWARE_PATH/bin/run_SAXSDom_benchmark.sh RcPutA SOFTWARE_PATH/examples/RcPutA/RcPutA_full.fasta  SOFTWARE_PATH/examples/RcPutA/RcH7m23.dat SOFTWARE_PATH/test_out/RcPutA_test/domain_pdb_list SOFTWARE_PATH/test_out/RcPutA_test/ 5 SOFTWARE_PATH/examples/RcPutA/RcPutASwissOct2019.pdb 2>&1 | tee  SOFTWARE_PATH/test_out/RcPutA_test.log
+sh SOFTWARE_PATH/bin/run_SAXSDom_benchmark.sh RcPutA SOFTWARE_PATH/examples/RcPutA/RcPutA_full.fasta  SOFTWARE_PATH/examples/RcPutA/RcH7m23.dat SOFTWARE_PATH/test_out/RcPutA_test/domain_pdb_list SOFTWARE_PATH/test_out/RcPutA_test/ 5 SOFTWARE_PATH/examples/RcPutA/RcPutAMULTICOMOct2019.pdb  2>&1 | tee  SOFTWARE_PATH/test_out/RcPutA_test.log
 
 printf "\nFinished.."
 printf "\nCheck log file <SOFTWARE_PATH/test_out/RcPutA_test.log>\n\n"
