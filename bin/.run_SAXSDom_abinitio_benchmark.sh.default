@@ -18,7 +18,6 @@ nativefile=$6
 
 
 mkdir -p $outputdir
-cd $outputdir
 
 cp $seqfile $outputdir/seq.fasta
 cp $saxsfile $outputdir/seq.dat
