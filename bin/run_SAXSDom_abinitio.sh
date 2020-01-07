@@ -21,7 +21,7 @@ mkdir -p $outputdir
 cp $seqfile $outputdir/seq.fasta
 cp $domainfile $outputdir/domainlist
 
-perl $GLOBAL_PATH/scripts/run_SAXSdom_abinitio_parallel.pl $targetid $outputdir/seq.fasta $outputdir/seq.dat  $outputdir/domainlist  $outputdir $epoch $ncpu  2>&1 | tee $outputdir/run.log
+perl $GLOBAL_PATH/scripts/run_SAXSdom_abinitio_parallel.pl $targetid $outputdir/seq.fasta  $outputdir/domainlist  $outputdir $epoch $ncpu  2>&1 | tee $outputdir/run.log
 
 printf "\nFinished.."
 
