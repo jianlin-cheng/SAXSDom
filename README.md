@@ -25,6 +25,46 @@ perl configure.pl
 ```
 sh compile_SAXSDom.sh
 
+#### output
+
+- Boost version: 1.55.0
+-- Boost version: 1.55.0
+-- Found the following Boost libraries:
+--   serialization
+--   program_options
+--   thread
+-- CMAKE_CXX_FLAGS:         
+running /data/jh7x3/SAXSDom/db_tools/tools/cmake-2.8.12.2/bin/cmake -E create_symlink "/data/jh7x3/SAXSDom/installation/Mocapy++-1.07/examples/data" "/data/jh7x3/SAXSDom/installation/Mocapy++-1.07/examples/data"  2>&1
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /data/jh7x3/SAXSDom/installation/Mocapy++-1.07
+Scanning dependencies of target Mocapy
+[  1%] Building CXX object src/CMakeFiles/Mocapy.dir/utils/LogFactorial.cpp.o
+[  2%] Building CXX object src/CMakeFiles/Mocapy.dir/multinomial/MultinomialDensities.cpp.o
+[  3%] Building CXX object src/CMakeFiles/Mocapy.dir/multinomial/MultinomialDensity.cpp.o
+[  4%] Building CXX object src/CMakeFiles/Mocapy.dir/multinomial/MultinomialESS.cpp.o
+[  6%] Building CXX object src/CMakeFiles/Mocapy.dir/dirichlet/DirichletDensities.cpp.o
+[  7%] Building CXX object src/CMakeFiles/Mocapy.dir/dirichlet/DirichletDensity.cpp.o
+[  8%] Building CXX object src/CMakeFiles/Mocapy.dir/dirichlet/DirichletESS.cpp.o
+[  9%] Building CXX object src/CMakeFiles/Mocapy.dir/inference/abstractinfengine.cpp.o
+[ 10%] Building CXX object src/CMakeFiles/Mocapy.dir/framework/dbn.cpp.o
+...
+...
+...
+Linking CXX static library ../libs/libMocapy.a
+[ 96%] Built target Mocapy
+Scanning dependencies of target SAXSDom
+[ 97%] Building CXX object examples/CMakeFiles/SAXSDom.dir/SAXSDom.cpp.o
+Linking CXX executable SAXSDom
+[ 97%] Built target SAXSDom
+Scanning dependencies of target mdarray
+[ 98%] Building CXX object examples/CMakeFiles/mdarray.dir/mdarray.cpp.o
+Linking CXX executable mdarray
+[ 98%] Built target mdarray
+Scanning dependencies of target mlr-uni
+[100%] Building CXX object examples/CMakeFiles/mlr-uni.dir/mlr-uni.cpp.o
+Linking CXX executable mlr-uni
+[100%] Built target mlr-uni
 ```
 
 **Example I**
