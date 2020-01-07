@@ -426,7 +426,7 @@ print("\n#### (2) Download basic tools\n\n");
 
 chdir($tools_dir);
 
-$basic_tools_list = "modeller-9.16.tar.gz;boost_1_38_0.tar.gz;boost_1_55_0.tar.gz;OpenBLAS.tar.gz;scwrl4.tar.gz;SCRATCH-1D_1.1.tar.gz;TMscore.tar.gz;cmake-2.8.12.2.tar.gz;cmake-3.5.2.tar.gz;blas-3.6.0.tar.gz;lapack-3.4.1.tar.gz;zlib-1.2.8.tar.gz;hdf5-1.8.16.tar.gz;gsl-2.1.tar.gz;gmp-4.3.2.tar.gz;mpfr-2.4.2.tar.gz;CGAL-4.8.1.tar.gz;fftw-3.3.4.tar.gz;libTAU-1.0.1.tar.gz;opencv.tar.gz;doxygen-1.8.6.tar.gz;imp-2.6.2.tar.gz";
+$basic_tools_list = "DeepQA.tar.gz;modeller-9.16.tar.gz;boost_1_38_0.tar.gz;boost_1_55_0.tar.gz;OpenBLAS.tar.gz;scwrl4.tar.gz;SCRATCH-1D_1.1.tar.gz;TMscore.tar.gz;cmake-2.8.12.2.tar.gz;cmake-3.5.2.tar.gz;blas-3.6.0.tar.gz;lapack-3.4.1.tar.gz;zlib-1.2.8.tar.gz;hdf5-1.8.16.tar.gz;gsl-2.1.tar.gz;gmp-4.3.2.tar.gz;mpfr-2.4.2.tar.gz;CGAL-4.8.1.tar.gz;fftw-3.3.4.tar.gz;libTAU-1.0.1.tar.gz;opencv.tar.gz;doxygen-1.8.6.tar.gz;imp-2.6.2.tar.gz";
 @basic_tools = split(';',$basic_tools_list);
 foreach $tool (@basic_tools)
 {
@@ -447,7 +447,12 @@ foreach $tool (@basic_tools)
 	{
 		`rm $tool`;
 	}
-	`wget http://daisy.rnet.missouri.edu/multicom_db_tools/tools/$tool`;
+	if("$tool" eq "DeepQA.tar.gz")
+	{
+		`wget http://sysbio.rnet.missouri.edu/bdm_download/DeepRank_db_tools/tools/$tool`;	
+	}else{
+		`wget http://daisy.rnet.missouri.edu/multicom_db_tools/tools/$tool`;
+	}
 	if(-e "$tool")
 	{
 		print "\n\t$tool is found, start extracting files......\n\n";
@@ -490,6 +495,24 @@ if(-d $tooldir)
 	}else{
 		die "The configure.pl file for $tooldir doesn't exist, please contact us(Jie Hou: jh7x3\@mail.missouri.edu)\n";
 	}
+}
+
+
+$tooldir = $SAXSDom_db_tools_dir.'/tools/DeepQA/';
+if(-d $tooldir)
+{
+        print "\n#########  Setting up DeepQA \n";
+        chdir $tooldir;
+        if(-f 'configure.pl')
+        {
+                $status = system("perl configure.pl");
+                if($status){
+                        die "Failed to run perl configure.pl \n";
+                        exit(-1);
+                }
+        }else{
+                die "The configure.pl file for $tooldir doesn't exist, please contact us(Jie Hou: jh7x3\@mail.missouri.edu)\n";
+        }
 }
 
 
