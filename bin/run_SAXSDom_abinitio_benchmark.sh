@@ -21,7 +21,6 @@ nativefile=$6
 mkdir -p $outputdir
 
 cp $seqfile $outputdir/seq.fasta
-cp $saxsfile $outputdir/seq.dat
 cp $domainfile $outputdir/domainlist
 cp $nativefile $outputdir/native.pdb
 
