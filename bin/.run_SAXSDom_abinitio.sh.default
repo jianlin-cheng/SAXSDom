@@ -19,20 +19,11 @@ epoch=$5
 mkdir -p $outputdir
 cd $outputdir
 
-if [[ "$seqfile" != /* ]]
-then
-   echo "Please provide absolute path for $seqfile"
-   exit
-fi
+cp $seqfile $outputdir/seq.fasta
+cp $saxsfile $outputdir/seq.dat
+cp $domainfile $outputdir/domainlist
 
-if [[ "$outputdir" != /* ]]
-then
-   echo "Please provide absolute path for $outputdir"
-   exit
-fi
-
-
-perl $GLOBAL_PATH/scripts/run_SAXSdom_abinitio_parallel.pl $targetid $seqfile  $domainlist $outputdir 50  2>&1 | tee $outputdir/run.log
+perl $GLOBAL_PATH/scripts/run_SAXSdom_abinitio_parallel.pl $targetid $outputdir/seq.fasta $outputdir/seq.dat  $outputdir/domainlist  $outputdir $epoch  2>&1 | tee $outputdir/run.log
 
 printf "\nFinished.."
 

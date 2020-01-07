@@ -14,11 +14,11 @@ if($numArgs < 6 or $numArgs > 7)
 
 $proc_num = 1;
 
-$targetid="$ARGV[0]";
-$seqfile="$ARGV[1]";
-$saxsfile="$ARGV[2]";
-$domainfile="$ARGV[3]";
-$outputdir="$ARGV[4]";
+$targetid=abs_path("$ARGV[0]");
+$seqfile=abs_path("$ARGV[1]");
+$saxsfile=abs_path("$ARGV[2]");
+$domainfile=abs_path("$ARGV[3]");
+$outputdir=abs_path("$ARGV[4]");
 $epoch="$ARGV[5]";
 if($numArgs == 7)
 {
