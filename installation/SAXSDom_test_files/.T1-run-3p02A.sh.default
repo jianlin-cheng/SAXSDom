@@ -21,7 +21,7 @@ cd SOFTWARE_PATH/test_out/3p02A_test/
 echo SOFTWARE_PATH/examples/3p02A/3p02A_D1_prediction.pdb > SOFTWARE_PATH/test_out/3p02A_test/domain_pdb_list
 echo SOFTWARE_PATH/examples/3p02A/3p02A_D2_prediction.pdb >> SOFTWARE_PATH/test_out/3p02A_test/domain_pdb_list
 
-sh SOFTWARE_PATH/bin/run_SAXSDom_benchmark.sh 3p02A SOFTWARE_PATH/examples/3p02A/3p02A.fasta  SOFTWARE_PATH/examples/3p02A/saxs_profile.dat SOFTWARE_PATH/test_out/3p02A_test/domain_pdb_list SOFTWARE_PATH/test_out/3p02A_test/ 50 SOFTWARE_PATH/examples/3p02A/native.pdb  2>&1 | tee  SOFTWARE_PATH/test_out/3p02A_test.log
+sh SOFTWARE_PATH/bin/run_SAXSDom_benchmark.sh 3p02A SOFTWARE_PATH/examples/3p02A/3p02A.fasta  SOFTWARE_PATH/examples/3p02A/saxs_profile.dat SOFTWARE_PATH/test_out/3p02A_test/domain_pdb_list SOFTWARE_PATH/test_out/3p02A_test/ 5 SOFTWARE_PATH/examples/3p02A/native.pdb  2>&1 | tee  SOFTWARE_PATH/test_out/3p02A_test.log
 
 printf "\nFinished.."
 printf "\nCheck log file <SOFTWARE_PATH/test_out/3p02A_test.log>\n\n"

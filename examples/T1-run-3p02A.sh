@@ -21,7 +21,7 @@ cd /data/jh7x3/SAXSDom/test_out/3p02A_test/
 echo /data/jh7x3/SAXSDom/examples/3p02A/3p02A_D1_prediction.pdb > /data/jh7x3/SAXSDom/test_out/3p02A_test/domain_pdb_list
 echo /data/jh7x3/SAXSDom/examples/3p02A/3p02A_D2_prediction.pdb >> /data/jh7x3/SAXSDom/test_out/3p02A_test/domain_pdb_list
 
-sh /data/jh7x3/SAXSDom/bin/run_SAXSDom_benchmark.sh 3p02A /data/jh7x3/SAXSDom/examples/3p02A/3p02A.fasta  /data/jh7x3/SAXSDom/examples/3p02A/saxs_profile.dat /data/jh7x3/SAXSDom/test_out/3p02A_test/domain_pdb_list /data/jh7x3/SAXSDom/test_out/3p02A_test/ 50 /data/jh7x3/SAXSDom/examples/3p02A/native.pdb  2>&1 | tee  /data/jh7x3/SAXSDom/test_out/3p02A_test.log
+sh /data/jh7x3/SAXSDom/bin/run_SAXSDom_benchmark.sh 3p02A /data/jh7x3/SAXSDom/examples/3p02A/3p02A.fasta  /data/jh7x3/SAXSDom/examples/3p02A/saxs_profile.dat /data/jh7x3/SAXSDom/test_out/3p02A_test/domain_pdb_list /data/jh7x3/SAXSDom/test_out/3p02A_test/ 5 /data/jh7x3/SAXSDom/examples/3p02A/native.pdb  2>&1 | tee  /data/jh7x3/SAXSDom/test_out/3p02A_test.log
 
 printf "\nFinished.."
 printf "\nCheck log file </data/jh7x3/SAXSDom/test_out/3p02A_test.log>\n\n"
