@@ -11,7 +11,7 @@ export LD_LIBRARY_PATH=$GLOBAL_PATH/tools/IMP2.6/lib:$GLOBAL_PATH/tools/boost_1_
 
 targetid=$1
 seqfile=$2
-domainlist=$3
+domainfile=$3
 outputdir=$4
 epoch=50
 ncpu=$5
