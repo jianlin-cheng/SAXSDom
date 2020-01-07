@@ -92,7 +92,14 @@ GDT-TS-score= 0.5795 %(d<1)=0.4557 %(d<2)=0.4754 %(d<4)=0.5377 %(d<8)=0.8492
 GDT-HA-score= 0.4738 %(d<0.5)=0.4262 %(d<1)=0.4557 %(d<2)=0.4754 %(d<4)=0.5377
 ```
 
+**Example II**
 
+```
+cd examples
+
+sh T1-run-RcPutA.sh
+
+```
 
 <h4> Run SAXSDom </h4>
 
@@ -100,10 +107,11 @@ GDT-HA-score= 0.4738 %(d<0.5)=0.4262 %(d<1)=0.4557 %(d<2)=0.4754 %(d<4)=0.5377
 Usage:
 sh bin/run_SAXSDom.sh <target id> <fasta file> <saxs file> <domain list with path> <output directory> <number of cores to run, default:1>
 
-Example:
+Example I:
 sh bin/run_SAXSDom.sh 3p02A  examples/3p02A/3p02A.fasta  examples/3p02A/saxs_profile.dat examples/3p02A/domain_list_withPath_reindex  test_out/3p02A 5
 
-### output:
+Example II:
+sh bin/run_SAXSDom.sh RcPutA  examples/RcPutA/RcPutA_full.fasta  examples/RcPutA/RcH7m23.dat examples/RcPutA/domain_list_withPath_reindex  test_out/RcPutA 5
 
 ```
 
@@ -113,13 +121,17 @@ sh bin/run_SAXSDom.sh 3p02A  examples/3p02A/3p02A.fasta  examples/3p02A/saxs_pro
 Usage:
 sh bin/run_SAXSDom_abinitio.sh <target id> <fasta file> <domain list with path> <output directory> <number of cores to run, default:1>
 
-Example:
+Example I:
 sh bin/run_SAXSDom_abinitio.sh 3p02A  examples/3p02A/3p02A.fasta  examples/3p02A/domain_list_withPath_reindex  test_out/3p02A_abinitio 5
 
-### output:
+Example II:
+sh bin/run_SAXSDom_abinitio.sh RcPutA  examples/RcPutA/RcPutA_full.fasta  examples/RcPutA/domain_list_withPath_reindex  test_out/RcPutA_abinitio 5
+
+Example III:
+sh bin/run_SAXSDom_abinitio_benchmark.sh 3p02A  examples/3p02A/3p02A.fasta  examples/3p02A/domain_list_withPath_reindex  test_out/3p02A_abinitio 5 examples/3p02A/native.pdb
+
+Example IV:
+sh bin/run_SAXSDom_abinitio_benchmark.sh RcPutA  examples/RcPutA/RcPutA_full.fasta  examples/RcPutA/domain_list_withPath_reindex  test_out/RcPutA_abinitio 5 examples/RcPutA/RcPutASwissOct2019.pdb
 
 ```
 
-<h4> Run Modeller </h4>
-
-<h4> Run AIDA </h4>
