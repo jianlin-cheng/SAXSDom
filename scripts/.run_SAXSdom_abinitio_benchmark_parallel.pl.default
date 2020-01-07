@@ -14,7 +14,7 @@ if($numArgs < 6 or $numArgs > 7)
 
 $proc_num = 1;
 
-$targetid=abs_path("$ARGV[0]");
+$targetid="$ARGV[0]";
 $seqfile=abs_path("$ARGV[1]");
 $domainfile=abs_path("$ARGV[2]");
 $outputdir=abs_path("$ARGV[3]");

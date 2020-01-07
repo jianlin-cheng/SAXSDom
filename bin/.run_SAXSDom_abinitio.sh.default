@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ "$#" -ne 5 ]; then
+if [ "$#" -lt 4 ] || [ "$#" -gt 5 ]; then
   echo "Usage: $0 the number of parameter ($#) is not correct!" >&2
 
   exit 1
@@ -13,8 +13,8 @@ targetid=$1
 seqfile=$2
 domainlist=$3
 outputdir=$4
-epoch=$5
-
+epoch=50
+ncpu=$5
 
 mkdir -p $outputdir
 
@@ -22,7 +22,7 @@ cp $seqfile $outputdir/seq.fasta
 cp $saxsfile $outputdir/seq.dat
 cp $domainfile $outputdir/domainlist
 
-perl $GLOBAL_PATH/scripts/run_SAXSdom_abinitio_parallel.pl $targetid $outputdir/seq.fasta $outputdir/seq.dat  $outputdir/domainlist  $outputdir $epoch  2>&1 | tee $outputdir/run.log
+perl $GLOBAL_PATH/scripts/run_SAXSdom_abinitio_parallel.pl $targetid $outputdir/seq.fasta $outputdir/seq.dat  $outputdir/domainlist  $outputdir $epoch $ncpu  2>&1 | tee $outputdir/run.log
 
 printf "\nFinished.."
 

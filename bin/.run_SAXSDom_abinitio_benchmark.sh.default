@@ -13,7 +13,8 @@ targetid=$1
 seqfile=$2
 domainfile=$3
 outputdir=$4
-epoch=$5
+epoch=50
+ncpu=$5
 nativefile=$6
 
 
@@ -24,7 +25,7 @@ cp $saxsfile $outputdir/seq.dat
 cp $domainfile $outputdir/domainlist
 cp $nativefile $outputdir/native.pdb
 
-perl $GLOBAL_PATH/scripts/run_SAXSdom_abinitio_benchmark_parallel.pl $targetid $outputdir/seq.fasta $outputdir/seq.dat  $outputdir/domainlist  $outputdir $epoch $outputdir/native.pdb  2>&1 | tee $outputdir/run.log
+perl $GLOBAL_PATH/scripts/run_SAXSdom_abinitio_benchmark_parallel.pl $targetid $outputdir/seq.fasta $outputdir/seq.dat  $outputdir/domainlist  $outputdir $epoch $outputdir/native.pdb $ncpu  2>&1 | tee $outputdir/run.log
 
 printf "\nFinished.."
 

@@ -9,12 +9,14 @@ fi
 GLOBAL_PATH=SOFTWARE_PATH;
 export LD_LIBRARY_PATH=$GLOBAL_PATH/tools/IMP2.6/lib:$GLOBAL_PATH/tools/boost_1_55_0/lib:$LD_LIBRARY_PATH
 
+ncpu=1
 targetid=$1
 seqfile=$2
 saxsfile=$3
 domainfile=$4
 outputdir=$5
-epoch=$6
+epoch=50
+ncpu=$6
 nativefile=$7
 
 
@@ -25,7 +27,7 @@ cp $saxsfile $outputdir/seq.dat
 cp $domainfile $outputdir/domainlist
 cp $nativefile $outputdir/native.pdb
 
-perl $GLOBAL_PATH/scripts/run_SAXSdom_benchmark_parallel.pl $targetid $outputdir/seq.fasta $outputdir/seq.dat  $outputdir/domainlist  $outputdir $epoch $outputdir/native.pdb 2>&1 | tee $outputdir/run.log
+perl $GLOBAL_PATH/scripts/run_SAXSdom_benchmark_parallel.pl $targetid $outputdir/seq.fasta $outputdir/seq.dat  $outputdir/domainlist  $outputdir $epoch $outputdir/native.pdb $ncpu 2>&1 | tee $outputdir/run.log
 
 printf "\nFinished.."
 
