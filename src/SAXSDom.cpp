@@ -1691,8 +1691,8 @@ int main(int argc, char ** argv) {
 			ss[t] = 7;
 			cout << "converting initial ss from " <<full_domainPose[t].ss << " to 7"<<endl;
 			full_domainPose[t].ss = 7;
-			cout << "converting native ss from " <<nativePose[t].ss << " to 7"<<endl;
-			nativePose[t].ss=7;
+			//cout << "converting native ss from " <<nativePose[t].ss << " to 7"<<endl;
+			//nativePose[t].ss=7;
 		 }
 	}
 	
