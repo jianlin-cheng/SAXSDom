@@ -7,6 +7,7 @@ bin/run_SAXSDom_abinitio_benchmark.sh
 ### example
 installation/SAXSDom_test_files/T1-run-3p02A.sh
 installation/SAXSDom_test_files/T1-run-RcPutA.sh
+installation/SAXSDom_test_files/T1-run-SASDBJ3.sh
 
 ### scripts
 scripts/run_SAXSdom_parallel.pl
