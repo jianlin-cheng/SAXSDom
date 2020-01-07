@@ -1,4 +1,4 @@
-# SAXSDom (updated by 2020/01/07)
+# SAXSDom (updated by 2020/01/08)
 This is a bioinformatics tool to use SAXS data to assemble protein domain structures into full-length structural models
 
 
@@ -95,6 +95,13 @@ GDT-HA-score= 0.4738 %(d<0.5)=0.4262 %(d<1)=0.4557 %(d<2)=0.4754 %(d<4)=0.5377
 
 
 <h4> Run SAXSDom </h4>
+
+```
+sh bin/run_SAXSDom.sh 3p02A  examples/3p02A/3p02A.fasta  examples/3p02A/saxs_profile.dat examples/3p02A/domain_list_withPath_reindex  test_out/3p02A 50
+
+### output:
+
+```
 
 <h4> Run SAXSDom-abinitio </h4>
 
