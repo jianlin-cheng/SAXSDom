@@ -140,20 +140,26 @@ GDT-HA-score= 0.4271 %(d<0.5)=0.1990 %(d<1)=0.4700 %(d<2)=0.5026 %(d<4)=0.5369
 Usage:
 sh bin/run_SAXSDom.sh <target id> <fasta file> <saxs file> <domain list with path> <output directory> <number of cores to run, default:1>
 
+```
+
+
+```
 Example I:
 sh bin/run_SAXSDom.sh 3p02A  examples/3p02A/3p02A.fasta  examples/3p02A/saxs_profile.dat examples/3p02A/domain_list_withPath_reindex  test_out/3p02A 5
+```
 
+```
 Example II:
-sh bin/run_SAXSDom.sh RcPutA  examples/RcPutA/RcPutA_full.fasta  examples/RcPutA/RcH7m23.dat examples/RcPutA/domain_list_withPath_reindex  test_out/RcPutA 5
+sh bin/run_SAXSDom.sh SASDBJ3  examples/SASDBJ3/SASDBJ3.fasta  examples/SASDBJ3/SASDBJ3-A.dat examples/SASDBJ3/domain_list_withPath_reindex  test_out/SASDBJ3_benchmark 5 examples/SASDBJ3/reference.pdb
 
 ```
 
 ```
 Example III:
-sh bin/run_SAXSDom_benchmark.sh SASDBJ3  examples/SASDBJ3/SASDBJ3.fasta  examples/SASDBJ3/SASDBJ3-A.dat examples/SASDBJ3/domain_list_withPath_reindex  test_out/SASDBJ3_benchmark 5 examples/SASDBJ3/reference.pdb
-
+sh bin/run_SAXSDom.sh RcPutA  examples/RcPutA/RcPutA_full.fasta  examples/RcPutA/RcH7m23.dat examples/RcPutA/domain_list_withPath_reindex  test_out/RcPutA 5
 
 ```
+
 
 <h4> Run SAXSDom-abinitio </h4>
 
