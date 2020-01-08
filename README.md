@@ -92,16 +92,8 @@ GDT-TS-score= 0.5795 %(d<1)=0.4557 %(d<2)=0.4754 %(d<4)=0.5377 %(d<8)=0.8492
 GDT-HA-score= 0.4738 %(d<0.5)=0.4262 %(d<1)=0.4557 %(d<2)=0.4754 %(d<4)=0.5377
 ```
 
+
 **Example II**
-
-```
-cd examples
-
-sh T1-run-RcPutA.sh
-
-```
-
-**Example III**
 ```
 cd examples
 
@@ -132,6 +124,16 @@ TM-score    = 0.7032  (d0= 8.47, TM10= 0.6815)
 MaxSub-score= 0.4868  (d0= 3.50)
 GDT-TS-score= 0.5836 %(d<1)=0.4700 %(d<2)=0.5026 %(d<4)=0.5369 %(d<8)=0.8250
 GDT-HA-score= 0.4271 %(d<0.5)=0.1990 %(d<1)=0.4700 %(d<2)=0.5026 %(d<4)=0.5369
+```
+
+
+**Example III**
+
+```
+cd examples
+
+sh T1-run-RcPutA.sh
+
 ```
 
 <h4> Run SAXSDom </h4>
