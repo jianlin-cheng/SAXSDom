@@ -136,7 +136,7 @@ sh T1-run-RcPutA.sh
 
 ```
 
-<h4> Run SAXSDom </h4>
+**(4)  Run SAXSDom **
 
 ```
 Usage:
@@ -163,7 +163,7 @@ sh bin/run_SAXSDom.sh RcPutA  examples/RcPutA/RcPutA_full.fasta  examples/RcPutA
 ```
 
 
-<h4> Run SAXSDom-abinitio </h4>
+**(5)  Run SAXSDom-abinitio**
 
 ```
 Usage:
