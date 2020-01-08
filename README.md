@@ -152,7 +152,7 @@ sh bin/run_SAXSDom.sh 3p02A  examples/3p02A/3p02A.fasta  examples/3p02A/saxs_pro
 
 ```
 Example II:
-sh bin/run_SAXSDom.sh SASDBJ3  examples/SASDBJ3/SASDBJ3.fasta  examples/SASDBJ3/SASDBJ3-A.dat examples/SASDBJ3/domain_list_withPath_reindex  test_out/SASDBJ3_benchmark 5 examples/SASDBJ3/reference.pdb
+sh bin/run_SAXSDom.sh SASDBJ3  examples/SASDBJ3/SASDBJ3.fasta  examples/SASDBJ3/SASDBJ3-A.dat examples/SASDBJ3/domain_list_withPath_reindex  test_out/SASDBJ3_benchmark 5
 
 ```
 
@@ -169,17 +169,24 @@ sh bin/run_SAXSDom.sh RcPutA  examples/RcPutA/RcPutA_full.fasta  examples/RcPutA
 Usage:
 sh bin/run_SAXSDom_abinitio.sh <target id> <fasta file> <domain list with path> <output directory> <number of cores to run, default:1>
 
+```
+
+```
 Example I:
+
 sh bin/run_SAXSDom_abinitio.sh 3p02A  examples/3p02A/3p02A.fasta  examples/3p02A/domain_list_withPath_reindex  test_out/3p02A_abinitio 5
+```
 
+```
 Example II:
-sh bin/run_SAXSDom_abinitio.sh RcPutA  examples/RcPutA/RcPutA_full.fasta  examples/RcPutA/domain_list_withPath_reindex  test_out/RcPutA_abinitio 5
 
+sh bin/run_SAXSDom_abinitio.sh SASDBJ3  examples/SASDBJ3/SASDBJ3.fasta examples/SASDBJ3/domain_list_withPath_reindex  test_out/SASDBJ3_abinitio 5
+```
+
+```
 Example III:
-sh bin/run_SAXSDom_abinitio_benchmark.sh 3p02A  examples/3p02A/3p02A.fasta  examples/3p02A/domain_list_withPath_reindex  test_out/3p02A_abinitio 5 examples/3p02A/native.pdb
 
-Example IV:
-sh bin/run_SAXSDom_abinitio_benchmark.sh RcPutA  examples/RcPutA/RcPutA_full.fasta  examples/RcPutA/domain_list_withPath_reindex  test_out/RcPutA_abinitio 5 examples/RcPutA/RcPutASwissOct2019.pdb
+sh bin/run_SAXSDom_abinitio.sh RcPutA  examples/RcPutA/RcPutA_full.fasta  examples/RcPutA/domain_list_withPath_reindex  test_out/RcPutA_abinitio 5
 
 ```
 
