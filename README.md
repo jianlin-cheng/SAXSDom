@@ -136,7 +136,7 @@ sh T1-run-RcPutA.sh
 
 ```
 
-**(4)  Run SAXSDom **
+**(4)  Run SAXSDom**
 
 ```
 Usage:
