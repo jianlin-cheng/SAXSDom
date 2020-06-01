@@ -1,8 +1,8 @@
-# SAXSDom (updated by 2020/01/08)
+# SAXSDom
 This is a bioinformatics tool to use SAXS data to assemble protein domain structures into full-length structural models
 
 
-**Installation**
+**Installation (tested on CentOS Linux 7 (Core))**
 
 **(1) Setup libraries (required)**
 
@@ -92,7 +92,42 @@ GDT-TS-score= 0.5795 %(d<1)=0.4557 %(d<2)=0.4754 %(d<4)=0.5377 %(d<8)=0.8492
 GDT-HA-score= 0.4738 %(d<0.5)=0.4262 %(d<1)=0.4557 %(d<2)=0.4754 %(d<4)=0.5377
 ```
 
+
 **Example II**
+```
+cd examples
+
+sh T1-run-SASDBJ3.sh
+
+### Output:
+Best model: /data/jh7x3/SAXSDom/test_out/SASDBJ3_test/SASDBJ3_SAXSDom_top1.pdb
+
+Evaluating the model
+
+
+ *****************************************************************************
+ *                                 TM-SCORE                                  *
+ * A scoring function to assess the quality of protein structure predictions *
+ * Based on statistics:                                                      *
+ *       0.0 < TM-score < 0.17, Random predictions                           *
+ *       0.4 < TM-score < 1.00, Meaningful predictions                       *
+ * Reference: Yang Zhang and Jeffrey Skolnick, Proteins 2004 57: 702-710     *
+ * For comments, please email to: yzhang@ku.edu                              *
+ *****************************************************************************
+
+Structure1: /data/jh7x  Length=  583
+Structure2: /data/jh7x  Length=  583 (by which all scores are normalized)
+Number of residues in common=  583
+RMSD of  the common residues=    6.162
+
+TM-score    = 0.7032  (d0= 8.47, TM10= 0.6815)
+MaxSub-score= 0.4868  (d0= 3.50)
+GDT-TS-score= 0.5836 %(d<1)=0.4700 %(d<2)=0.5026 %(d<4)=0.5369 %(d<8)=0.8250
+GDT-HA-score= 0.4271 %(d<0.5)=0.1990 %(d<1)=0.4700 %(d<2)=0.5026 %(d<4)=0.5369
+```
+
+
+**Example III**
 
 ```
 cd examples
@@ -101,37 +136,57 @@ sh T1-run-RcPutA.sh
 
 ```
 
-<h4> Run SAXSDom </h4>
+**(4)  Run SAXSDom**
 
 ```
 Usage:
 sh bin/run_SAXSDom.sh <target id> <fasta file> <saxs file> <domain list with path> <output directory> <number of cores to run, default:1>
 
+```
+
+
+```
 Example I:
 sh bin/run_SAXSDom.sh 3p02A  examples/3p02A/3p02A.fasta  examples/3p02A/saxs_profile.dat examples/3p02A/domain_list_withPath_reindex  test_out/3p02A 5
+```
 
+```
 Example II:
+sh bin/run_SAXSDom.sh SASDBJ3  examples/SASDBJ3/SASDBJ3.fasta  examples/SASDBJ3/SASDBJ3-A.dat examples/SASDBJ3/domain_list_withPath_reindex  test_out/SASDBJ3_benchmark 5
+
+```
+
+```
+Example III:
 sh bin/run_SAXSDom.sh RcPutA  examples/RcPutA/RcPutA_full.fasta  examples/RcPutA/RcH7m23.dat examples/RcPutA/domain_list_withPath_reindex  test_out/RcPutA 5
 
 ```
 
-<h4> Run SAXSDom-abinitio </h4>
+
+**(5)  Run SAXSDom-abinitio**
 
 ```
 Usage:
 sh bin/run_SAXSDom_abinitio.sh <target id> <fasta file> <domain list with path> <output directory> <number of cores to run, default:1>
 
+```
+
+```
 Example I:
+
 sh bin/run_SAXSDom_abinitio.sh 3p02A  examples/3p02A/3p02A.fasta  examples/3p02A/domain_list_withPath_reindex  test_out/3p02A_abinitio 5
+```
 
+```
 Example II:
-sh bin/run_SAXSDom_abinitio.sh RcPutA  examples/RcPutA/RcPutA_full.fasta  examples/RcPutA/domain_list_withPath_reindex  test_out/RcPutA_abinitio 5
 
+sh bin/run_SAXSDom_abinitio.sh SASDBJ3  examples/SASDBJ3/SASDBJ3.fasta examples/SASDBJ3/domain_list_withPath_reindex  test_out/SASDBJ3_abinitio 5
+```
+
+```
 Example III:
-sh bin/run_SAXSDom_abinitio_benchmark.sh 3p02A  examples/3p02A/3p02A.fasta  examples/3p02A/domain_list_withPath_reindex  test_out/3p02A_abinitio 5 examples/3p02A/native.pdb
 
-Example IV:
-sh bin/run_SAXSDom_abinitio_benchmark.sh RcPutA  examples/RcPutA/RcPutA_full.fasta  examples/RcPutA/domain_list_withPath_reindex  test_out/RcPutA_abinitio 5 examples/RcPutA/RcPutASwissOct2019.pdb
+sh bin/run_SAXSDom_abinitio.sh RcPutA  examples/RcPutA/RcPutA_full.fasta  examples/RcPutA/domain_list_withPath_reindex  test_out/RcPutA_abinitio 5
 
 ```
 
