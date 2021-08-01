@@ -6,7 +6,7 @@ if [ "$#" -lt 4 ] || [ "$#" -gt 5 ]; then
   exit 1
 fi
 
-GLOBAL_PATH=/data/jh7x3/SAXSDom/;
+GLOBAL_PATH=/storage/hpc/data/jh7x3/SAXSDom/;
 export LD_LIBRARY_PATH=$GLOBAL_PATH/tools/IMP2.6/lib:$GLOBAL_PATH/tools/boost_1_55_0/lib:$LD_LIBRARY_PATH
 
 targetid=$1

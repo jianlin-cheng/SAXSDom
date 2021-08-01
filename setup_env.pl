@@ -351,7 +351,7 @@ print OUT "cd $SAXSDom_db_tools_dir/tools\n\n";
 print OUT "cd opencv\n\n";
 print OUT "mkdir $SAXSDom_db_tools_dir/tools/opencv/release\n\n";
 print OUT "cd $SAXSDom_db_tools_dir/tools/opencv/release\n\n";
-print OUT "$SAXSDom_db_tools_dir/tools/cmake-3.5.2/bin/cmake -D CMAKE_BUILD_TYPE=RELEASE -D  CMAKE_INSTALL_PREFIX=$SAXSDom_db_tools_dir/tools/opencv/release ..\n\n";
+print OUT "$SAXSDom_db_tools_dir/tools/cmake-3.5.2/bin/cmake -D CMAKE_BUILD_TYPE=RELEASE -D  CMAKE_INSTALL_PREFIX=$SAXSDom_db_tools_dir/tools/OPENCV ..\n\n";
 print OUT "make -j 8\n\n";
 print OUT "make install\n\n";
 print OUT "echo \"installed\" > $SAXSDom_db_tools_dir/tools/opencv/install.done\n\n";
@@ -378,7 +378,7 @@ if($gcc_version[0] ==4 and $gcc_version[1]<6) #gcc 4.6
 	print OUT "## sometimes the multifit.so will failed, but it is okay to include fftw-3.3.4, won't influence other lib\n";
 	print OUT "export PATH=$SAXSDom_db_tools_dir/tools/doxygen-1.8.6/bin/:\$PATH\n";
 	print OUT "export PATH=$SAXSDom_db_tools_dir/tools/gsl-2.1/:\$PATH\n";
-	print OUT "export LD_LIBRARY_PATH=$SAXSDom_db_tools_dir/tools/opencv/release/lib:\$LD_LIBRARY_PATH\n";
+	print OUT "export LD_LIBRARY_PATH=$SAXSDom_db_tools_dir/tools/OPENCV/lib:\$LD_LIBRARY_PATH\n";
 
 	print OUT "mkdir -p $SAXSDom_db_tools_dir/tools/IMP2.6/\n";
 	print OUT "cd $SAXSDom_db_tools_dir/tools/IMP2.6/\n";
@@ -406,7 +406,7 @@ if($gcc_version[0] ==4 and $gcc_version[1]<6) #gcc 4.6
 	print OUT "## sometimes the multifit.so will failed, but it is okay to include fftw-3.3.4, won't influence other lib\n";
 	print OUT "export PATH=$SAXSDom_db_tools_dir/tools/doxygen-1.8.6/bin/:\$PATH\n";
 	print OUT "export PATH=$SAXSDom_db_tools_dir/tools/gsl-2.1/:\$PATH\n";
-	print OUT "export LD_LIBRARY_PATH=$SAXSDom_db_tools_dir/tools/opencv/release/lib:\$LD_LIBRARY_PATH\n";
+	print OUT "export LD_LIBRARY_PATH=$SAXSDom_db_tools_dir/tools/OPENCV/lib:\$LD_LIBRARY_PATH\n";
 
 	print OUT "mkdir -p $SAXSDom_db_tools_dir/tools/IMP2.6/\n";
 	print OUT "cd $SAXSDom_db_tools_dir/tools/IMP2.6/\n";

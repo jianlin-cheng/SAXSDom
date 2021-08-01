@@ -3,7 +3,7 @@
 use Cwd 'abs_path';
 use File::Basename;
 
-$GLOBAL_PATH="/data/jh7x3/SAXSDom/";
+$GLOBAL_PATH="/storage/hpc/data/jh7x3/SAXSDom/";
 
 $numArgs = @ARGV;
 if($numArgs < 6 or $numArgs > 7)
@@ -100,7 +100,7 @@ for($decoy=1;$decoy <= $epoch;$decoy++)
 	
 	print RUNFILE "printf \"$GLOBAL_PATH/bin/SAXSDom  -i ${targetid}_saxsdom -f  ${targetid}.fasta  -s SCRATCH/${targetid}.ss8    -c metapsicov/${targetid}_initial_domain.cm   -l $domainfile  -m $GLOBAL_PATH/lib/UniCon.iohmm        -e $saxsfile -o $outputdir/Assembly_docoy$decoy -t   -g test_assembly  -d 1 -x  1  --scoreWeight 10_700_700_700 --scoreWeightInitial 10_700_700_700  --scoreCombine  &> $outputdir/Assembly_docoy$decoy/run.log\\n\\n\"\n";
 
-	print RUNFILE "$GLOBAL_PATH/bin/SAXSDom  -i ${targetid}_saxsdom -f  ${targetid}.fasta  -s SCRATCH/${targetid}.ss8    -c metapsicov/${targetid}_initial_domain.cm   -l $domainfile  -m $GLOBAL_PATH/lib/UniCon.iohmm        -e $saxsfile -o $outputdir/Assembly_docoy$decoy -t   -g test_assembly  -d 1 -x  1  --scoreWeight 30_700_700_700 --scoreWeightInitial 30_700_700_700  --scoreCombine  &> $outputdir/Assembly_docoy$decoy/run.log\n";
+	print RUNFILE "$GLOBAL_PATH/bin/SAXSDom  -i ${targetid}_saxsdom -f  ${targetid}.fasta  -s SCRATCH/${targetid}.ss8    -c metapsicov/${targetid}_initial_domain.cm   -l $domainfile  -m $GLOBAL_PATH/lib/UniCon.iohmm        -e $saxsfile -o $outputdir/Assembly_docoy$decoy -t   -g test_assembly  -d 1 -x  1  --scoreWeight 10_700_700_700 --scoreWeightInitial 10_700_700_700  --scoreCombine  &> $outputdir/Assembly_docoy$decoy/run.log\n";
 	print RUNFILE "rm $outputdir/Assembly_docoy$decoy/sample*\n";
 	print RUNFILE "rm $outputdir/Assembly_docoy$decoy/GlobalFoldon*pdb\n";
 	print RUNFILE "rm $outputdir/Assembly_docoy$decoy/*initial*pdb\n";
